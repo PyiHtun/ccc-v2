@@ -13,12 +13,12 @@ import "./App.css";
 
 // Images
 import logo from "./img/ccc_main_2.png";
-import card1 from "./img/card-letUsHelp.webp";
-import card2 from "./img/card-consultation.webp";
-import card3 from "./img/card-careplan.webp";
-import card4 from "./img/card-inGoodHand.webp";
-import carousel11 from "./img/temp/istockphoto-2.jpg";
-import carousel22 from "./img/temp/istockphoto-1.jpg";
+import card1 from "./img/card-connect-pexels.jpg";
+import card2 from "./img/card-consultation-pexels.jpg";
+import card3 from "./img/card-review-pexels.jpg";
+import card4 from "./img/card-ccc.jpg";
+import carousel11 from "./img/temp/Gemini_Gen_1.png";
+import carousel22 from "./img/temp/carousel-pexels.jpg";
 import carousel33 from "./img/temp/phone.jpg";
 import carousel44 from "./img/temp/bp.jpg";
 import carousel55 from "./img/temp/nathan-anderson.jpg";
@@ -32,6 +32,7 @@ import serviceMedication from "./img/services-pills.png";
 import serviceNightCare from "./img/services-night-care.png";
 import serviceCompanion from "./img/services-companionship.png";
 import serviceSpecialist from "./img/services-specialist.png";
+import serviceLiveIn from "./img/services-live-in.png";
 
 import touchIcon from "./img/touch-32.png";
 
@@ -508,6 +509,20 @@ function App() {
                 style={gridStyle}
                 onClick={() =>
                   showDrawer({
+                    title: "Live-in Care",
+                    logo: serviceLiveIn, // <-- add/import an icon for Live-in Care
+                    description:
+                      "Let's start our journey together for better times",
+                  })
+                }
+              >
+                <ServiceItem icon={serviceLiveIn} title="Live-in Care (24-hour)" />
+                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
+              </Card.Grid>
+              <Card.Grid
+                style={gridStyle}
+                onClick={() =>
+                  showDrawer({
                     title: "Medication Administration",
                     logo: serviceMedication,
                     description:
@@ -692,31 +707,29 @@ function App() {
                 >
                   <p>Cozy Corner Care Ltd.,</p>
                   <p>
+                    Suit 49,
+                    <br />
                     The Wenta Business Centre,
                     <br />
                     Innova Business Park,
                     <br />
-                    Electric Ave,
-                    <br />
-                    Enfield
+                    Electric Ave, Enfield
                     <br />
                     EN3 7XU
                   </p>
                 </Card>
               </Col>
             </Row>
-
-            {/* Responsive Google Map */}
             <div className="map-responsive">
-              {/* <iframe
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2474.2038889627916!2d-0.0221966!3d51.6744109!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f85d892c037%3A0x6e4f421c8d130d3b!2sCozy%20Corner%20Care%20Limited!5e0!3m2!1sen!2suk!4v1764021263134!5m2!1sen!2suk"
                 width="100%"
                 height="450"
                 style={{ border: 0, marginTop: "20px" }}
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&q=The+Wenta+Business+Centre,+Innova+Business+Park,+Electric+Ave,+Enfield+EN3+7XU`}
-              /> */}
+              />
             </div>
           </div>
         </div>

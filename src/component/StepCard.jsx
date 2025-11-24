@@ -10,6 +10,10 @@ const StepCard = ({ step, title, description, imageSrc, onClick }) => (
       hoverable
       onClick={onClick}
       cover={<img alt={title} src={imageSrc} />}
+        style={{
+        border: "1px solid #d9d9d9", 
+        borderRadius: "8px",
+      }}
     >
       <Meta title={title} description={description} />
     </Card>
