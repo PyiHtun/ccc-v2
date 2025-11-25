@@ -93,7 +93,7 @@ const FloatButtonWrapper = () => (
   >
     <FloatButton
       icon={<PhoneFilled style={{ fontSize: 20 }} />}
-      onClick={() => (window.location.href = "tel:01234567890")}
+      onClick={() => (window.location.href = "tel:02039243451")}
       style={{
         backgroundColor: "#015BBB",
         color: "#ffffff",
@@ -148,36 +148,36 @@ function App() {
   // Data for the About Us section
   const aboutUsData = [
     {
-      avatar: "https://randomuser.me/api/portraits/women/23.jpg",
-      title: "Angela Kimani - Care responsible person",
+      avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=17",
+      title: "Angela Kimani - Nominated Individual",
       description: <Skeleton paragraph={{ rows: 8 }} active />,
     },
     {
-      avatar: "https://randomuser.me/api/portraits/women/43.jpg",
-      title: "Thu Aung - Care registered manager",
+      avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=9",
+      title: "Thu Aung - Registered Manager",
       description: <Skeleton paragraph={{ rows: 6 }} active />,
     },
-    {
-      avatar: "https://randomuser.me/api/portraits/women/16.jpg",
-      title: "John Wise - Care Manager",
-      description: <Skeleton paragraph={{ rows: 4 }} active />,
-    },
-    {
-      avatar: "https://randomuser.me/api/portraits/women/21.jpg",
-      title: "Michelle Leon - Lead Carer",
-      description: <Skeleton paragraph={{ rows: 4 }} active />,
-    },
-    {
-      avatar: "https://randomuser.me/api/portraits/women/13.jpg",
-      title: "Ohnma Thin - Account Manager",
-      description: <Skeleton paragraph={{ rows: 4 }} active />,
-    },
+    // {
+    //   avatar: "https://randomuser.me/api/portraits/women/16.jpg",
+    //   title: "John Wise - Care Manager",
+    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
+    // },
+    // {
+    //   avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+    //   title: "Michelle Leon - Lead Carer",
+    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
+    // },
+    // {
+    //   avatar: "https://randomuser.me/api/portraits/women/13.jpg",
+    //   title: "Ohnma Thin - Account Manager",
+    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
+    // },
   ];
 
-  // Displays a message
-  const showMessage = (msg) => {
-    message.success(msg);
-  };
+  // // Displays a message
+  // const showMessage = (msg) => {
+  //   message.success(msg);
+  // };
 
   // Validate email or phone number input using regex
   const handleSearch = (value) => {
@@ -251,7 +251,7 @@ function App() {
         {/* Carousel Section */}
         <div>
           <Carousel arrows infinite>
-            {[carousel11, carousel22, carousel33, carousel44, carousel55].map(
+            {[carousel22, carousel33, carousel44, carousel55].map(
               (img, idx) => (
                 <div key={idx}>
                   <div
@@ -605,7 +605,7 @@ function App() {
                     <PhoneFilled
                       style={{ color: "#015BBB", marginRight: "8px" }}
                     />
-                    01234 567890
+                    0203 924 3451
                   </p>
                   <p onClick={() => handleCopyEmail("info@cozycornercare.com")}>
                     <MailFilled
@@ -637,7 +637,7 @@ function App() {
                     <PhoneFilled
                       style={{ color: "#015BBB", marginRight: "8px" }}
                     />
-                    01234 567890
+                    0203 924 3451
                   </p>
                   <p
                     onClick={() =>
@@ -673,7 +673,7 @@ function App() {
                     <PhoneFilled
                       style={{ color: "#015BBB", marginRight: "8px" }}
                     />
-                    01234 567890
+                    0203 924 3451
                   </p>
                   <p
                     onClick={() =>
