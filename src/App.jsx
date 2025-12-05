@@ -7,6 +7,7 @@ import CustomListItems from "./component/CustomListItems.jsx";
 import GradientButton from "./component/GradientButton.jsx";
 import ServiceItem from "./component/ServiceItem.jsx";
 import StepCard from "./component/StepCard.jsx";
+import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import useWindowSize from "./hook/useWindowSize";
 
 import "./App.css";
@@ -337,10 +338,10 @@ function App() {
             </Row>
 
             {/* Drawer for Card Details */}
-            <Drawer
+            <TapSwipeDrawer
               title={selectedCard ? selectedCard.title : "Card Details"}
-              onClose={onClose}
               open={drawerOpen}
+              onClose={onClose}
             >
               {selectedCard && selectedCard.image && (
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -355,6 +356,7 @@ function App() {
                   />
                 </div>
               )}
+
               {selectedCard && selectedCard.logo && (
                 <div
                   style={{
@@ -363,6 +365,7 @@ function App() {
                     float: "left",
                     marginRight: "8px",
                   }}
+                  data-no-close
                 >
                   <img
                     src={selectedCard.logo}
@@ -371,8 +374,9 @@ function App() {
                   />
                 </div>
               )}
+
               {selectedCard ? selectedCard.description : "Some contents..."}
-            </Drawer>
+            </TapSwipeDrawer>
           </div>
         </div>
 
