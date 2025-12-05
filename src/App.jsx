@@ -342,36 +342,24 @@ function App() {
               title={selectedCard ? selectedCard.title : "Card Details"}
               open={drawerOpen}
               onClose={onClose}
+              placement="right"   // change if you use left/bottom
             >
               {selectedCard && selectedCard.image && (
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <img
                     src={selectedCard.image}
                     alt={selectedCard.title}
-                    style={{
-                      width: "100%",
-                      maxHeight: "100px",
-                      objectFit: "cover",
-                    }}
+                    style={{ width: "100%", maxHeight: "100px", objectFit: "cover" }}
                   />
                 </div>
               )}
 
               {selectedCard && selectedCard.logo && (
                 <div
-                  style={{
-                    textAlign: "center",
-                    marginBottom: "2px",
-                    float: "left",
-                    marginRight: "8px",
-                  }}
+                  style={{ textAlign: "center", marginBottom: "2px", float: "left", marginRight: "8px" }}
                   data-no-close
                 >
-                  <img
-                    src={selectedCard.logo}
-                    alt={selectedCard.title}
-                    style={{ width: "40px", maxHeight: "40px" }}
-                  />
+                  <img src={selectedCard.logo} alt={selectedCard.title} style={{ width: "40px", maxHeight: "40px" }} />
                 </div>
               )}
 
