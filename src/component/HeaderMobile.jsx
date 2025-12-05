@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Space, Drawer, Button, Col, Row, Tag } from "antd";
+import { Layout, Menu, Space, Button, Col, Row, Tag } from "antd";
 import {
   PhoneTwoTone,
   MailTwoTone,
@@ -8,6 +8,7 @@ import {
   LinkedinOutlined,
   InstagramOutlined,
 } from "@ant-design/icons";
+import TapSwipeDrawer from "./TapSwipeDrawer";
 import logo from "../img/ccc_main_2.png";
 import "../App.css";
 
@@ -22,10 +23,7 @@ const HeaderMobile = ({ menuItems }) => {
     <>
       <Header
         className="mobile-header contact-info-mobile"
-        style={{
-          top: 0,
-          zIndex: 1000,
-        }}
+        style={{ top: 0, zIndex: 1000 }}
       >
         <Space>
           <PhoneTwoTone twoToneColor="#015BBB" />
@@ -38,7 +36,7 @@ const HeaderMobile = ({ menuItems }) => {
       <Header
         className="mobile-header"
         style={{
-          top: 40, // offset this header below the contact info header
+          top: 40,
           zIndex: 999,
           display: "flex",
           alignItems: "center",
@@ -49,7 +47,7 @@ const HeaderMobile = ({ menuItems }) => {
           src={logo}
           alt="Logo"
           style={{
-            height: "10em", // smaller for mobile
+            height: "10em",
             width: "16em",
             objectFit: "contain",
             marginLeft: "10px",
@@ -63,7 +61,9 @@ const HeaderMobile = ({ menuItems }) => {
           onClick={openDrawer}
           style={{ marginLeft: "auto", marginRight: "14px" }}
         />
-        <Drawer
+
+        {/* 👇 Tap anywhere inside closes; swipe right closes (placement="right") */}
+        <TapSwipeDrawer
           title="Menu"
           placement="right"
           onClose={closeDrawer}
@@ -73,15 +73,7 @@ const HeaderMobile = ({ menuItems }) => {
               <Col xs={24}>
                 <div style={{ textAlign: "left" }}>
                   <h4 style={{ marginBottom: "16px" }}>Follow Us</h4>
-                  <div
-                    style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
-                  >
-                    {/* <Tag icon={<TwitterOutlined />} color="#55acee">
-                      Twitter
-                    </Tag>
-                    <Tag icon={<YoutubeOutlined />} color="#cd201f">
-                      Youtube
-                    </Tag> */}
+                  <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                     <Tag icon={<FacebookOutlined />} color="#3b5999">
                       Facebook
                     </Tag>
@@ -104,9 +96,9 @@ const HeaderMobile = ({ menuItems }) => {
             mode="vertical"
             defaultSelectedKeys={["home"]}
             items={menuItems}
-            onClick={closeDrawer}
+            onClick={closeDrawer} // still closes when selecting a menu item
           />
-        </Drawer>
+        </TapSwipeDrawer>
       </Header>
     </>
   );
