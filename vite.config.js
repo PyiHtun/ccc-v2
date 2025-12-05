@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/ccc-v2/', 
   plugins: [react()],
+  build: { outDir: 'docs' }
 })
