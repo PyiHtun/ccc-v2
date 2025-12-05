@@ -51,7 +51,7 @@ const HeaderDesktop = ({ menuItems }) => (
     />
     <Space className="contact-info">
       <PhoneTwoTone twoToneColor="#015BBB" />
-      <span>01234567890</span>
+      <span>0203 924 3451</span>
       <MailTwoTone twoToneColor="#015BBB" />
       <span>info@cozycornercare.com</span>
     </Space>

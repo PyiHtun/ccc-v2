@@ -59,7 +59,11 @@ const CustomListItems = ({ data, title, description, avatar }) => {
             <div style={{ flex: 1, textAlign: "left" }}>
               <List.Item.Meta
                 title={item.title || title ? item.title || title : null}
-                description={item.description || description || null}
+                description={
+                  <span style={{ color: "#015BBB" }}>
+                    {item.description || description || null}
+                  </span>
+                }
               />
             </div>
           </div>

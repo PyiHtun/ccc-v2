@@ -17,11 +17,11 @@ import card1 from "./img/card-connect-pexels.jpg";
 import card2 from "./img/card-consultation-pexels.jpg";
 import card3 from "./img/card-review-pexels.jpg";
 import card4 from "./img/card-ccc.jpg";
-import carousel11 from "./img/temp/Gemini_Gen_1.png";
-import carousel22 from "./img/temp/carousel-pexels.jpg";
-import carousel33 from "./img/temp/phone.jpg";
-import carousel44 from "./img/temp/bp.jpg";
-import carousel55 from "./img/temp/nathan-anderson.jpg";
+// import carousel11 from "./img/temp/Gemini_Gen_1.png";
+// import carousel22 from "./img/temp/carousel-pexels.jpg";
+// import carousel33 from "./img/temp/phone.jpg";
+// import carousel44 from "./img/temp/bp.jpg";
+// import carousel55 from "./img/temp/nathan-anderson.jpg";
 
 import serviceHomeCare from "./img/services-home-care.png";
 import serviceRespite from "./img/services-respite.png";
@@ -53,9 +53,12 @@ import {
   Skeleton,
   Flex,
   Tag,
+  Descriptions,
 } from "antd";
 import {
+  PhoneTwoTone,
   PhoneFilled,
+  MailTwoTone,
   MailFilled,
   HeartFilled,
   SendOutlined,
@@ -92,11 +95,11 @@ const FloatButtonWrapper = () => (
     }}
   >
     <FloatButton
-      icon={<PhoneFilled style={{ fontSize: 20 }} />}
+      icon={<PhoneTwoTone style={{ fontSize: 20 }}/>}
       onClick={() => (window.location.href = "tel:02039243451")}
       style={{
         backgroundColor: "#015BBB",
-        color: "#ffffff",
+        color: "#015BBB",
         width: 60,
         height: 60,
         display: "flex",
@@ -105,10 +108,10 @@ const FloatButtonWrapper = () => (
       }}
     />
     <FloatButton
-      icon={<MailFilled />}
+      icon={<MailTwoTone />}
       style={{
         backgroundColor: "#015BBB",
-        color: "#ffffff",
+        color: "#015BBB",
         width: 60,
         height: 60,
         display: "flex",
@@ -157,21 +160,6 @@ function App() {
       title: "Thu Aung - Registered Manager",
       description: <Skeleton paragraph={{ rows: 6 }} active />,
     },
-    // {
-    //   avatar: "https://randomuser.me/api/portraits/women/16.jpg",
-    //   title: "John Wise - Care Manager",
-    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
-    // },
-    // {
-    //   avatar: "https://randomuser.me/api/portraits/women/21.jpg",
-    //   title: "Michelle Leon - Lead Carer",
-    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
-    // },
-    // {
-    //   avatar: "https://randomuser.me/api/portraits/women/13.jpg",
-    //   title: "Ohnma Thin - Account Manager",
-    //   description: <Skeleton paragraph={{ rows: 4 }} active />,
-    // },
   ];
 
   // // Displays a message
@@ -250,27 +238,11 @@ function App() {
       <Content className="content-container">
         {/* Carousel Section */}
         <div>
-          <Carousel arrows infinite>
-            {[carousel22, carousel33, carousel44, carousel55].map(
-              (img, idx) => (
-                <div key={idx}>
-                  <div
-                    className="carousel-content"
-                    style={{
-                      backgroundImage: `url(${img})`,
-                      position: "relative",
-                    }}
-                  />
-                </div>
-              ),
-            )}
-          </Carousel>
           <FloatButtonWrapper />
         </div>
-
         {/* Search Section */}
         <Row justify="center" align="center">
-          <Col xs={24} sm={24} md={12} lg={12} style={{ textAlign: "center" }}>
+          <Col span={21} style={{ textAlign: "center" }}>
             <Alert
               message="Leave your contact number or email, and we'll be in touch soon..."
               description={
@@ -289,7 +261,7 @@ function App() {
                   onFocus={() => setSuccessful(false)}
                 />
               }
-              type="success"
+              type="info"
               style={{
                 marginTop: "20px",
                 textAlign: "center",
@@ -412,7 +384,7 @@ function App() {
             </Divider>
             <CustomListItems
               avatar="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
-              description="Choosing the right care service is crucial. Explore our range of care services below, simply tap any card to view detailed information about how we can support you or your loved ones with compassionate personal care, specialist dementia support, or assistance with disabilities. Click any card for more details."
+              description="Choosing the right care service is crucial. Explore our range of care services below, simply tap any card to view detailed information about how we can support you or your loved ones with compassionate personal care, specialist dementia support, or assistance with disabilities."
             />
             <Card>
               <Card.Grid
@@ -590,9 +562,34 @@ function App() {
               className="card-row"
               style={{ textAlign: "center" }}
             >
-              <Col span={6}>
+              <Col span={12}>
                 <Card
-                  title="Clients"
+                  title="Address"
+                  size="small"
+                  style={{
+                    margin: "12px",
+                    minHeight: "240px",
+                    minWidth: "80%",
+                    border: "1px solid #015BBB",
+                  }}
+                >
+                  <p>Cozy Corner Care Ltd.,
+                    <br />
+                    Suit 49, 
+                    <br />
+                    The Wenta Business Centre,
+                    <br />
+                    Innova Business Park,
+                    <br />
+                    Electric Ave, Enfield
+                    <br />
+                    EN3 7XU
+                  </p>
+                </Card>
+              </Col>
+              <Col span={12}>
+                <Card
+                  title="Phone"
                   size="small"
                   style={{
                     margin: "12px",
@@ -609,113 +606,21 @@ function App() {
                   </p>
                   <p onClick={() => handleCopyEmail("info@cozycornercare.com")}>
                     <MailFilled
-                      style={{ color: "#E1306C", marginRight: "8px" }}
+                      style={{ color: "#015BBB", marginRight: "8px" }}
                     />
                     info@cozycornercare.com
                   </p>
-                  <div style={{ marginTop: "40px" }}>
-                    <GradientButton
-                      label="Request Call Back"
-                      icon={<HeartFilled />}
-                      onClick={handleGradientButtonClick}
-                    />
-                  </div>
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card
-                  title="Corporate"
-                  size="small"
-                  style={{
-                    margin: "12px",
-                    minHeight: "240px",
-                    minWidth: "80%",
-                    border: "1px solid #015BBB",
-                  }}
-                >
-                  <p>
-                    <PhoneFilled
-                      style={{ color: "#015BBB", marginRight: "8px" }}
-                    />
-                    0203 924 3451
-                  </p>
-                  <p
-                    onClick={() =>
-                      handleCopyEmail("corporate@cozycornercare.com")
-                    }
-                  >
+                  <p onClick={() => handleCopyEmail("corporate@cozycornercare.com")}>
                     <MailFilled
-                      style={{ color: "#E1306C", marginRight: "8px" }}
+                      style={{ color: "#015BBB", marginRight: "8px" }}
                     />
                     corporate@cozycornercare.com
                   </p>
-                  <div style={{ marginTop: "40px" }}>
-                    <GradientButton
-                      label="Request Call Back"
-                      icon={<HeartFilled />}
-                      onClick={handleGradientButtonClick}
-                    />
-                  </div>
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card
-                  title="Careers"
-                  size="small"
-                  style={{
-                    margin: "12px",
-                    minHeight: "240px",
-                    minWidth: "80%",
-                    border: "1px solid #015BBB",
-                  }}
-                >
-                  <p>
-                    <PhoneFilled
+                  <p onClick={() => handleCopyEmail("careers@cozycornercare.com")}>
+                    <MailFilled
                       style={{ color: "#015BBB", marginRight: "8px" }}
                     />
-                    0203 924 3451
-                  </p>
-                  <p
-                    onClick={() =>
-                      handleCopyEmail("careers@cozycornercare.com")
-                    }
-                  >
-                    <MailFilled
-                      style={{ color: "#E1306C", marginRight: "8px" }}
-                    />
                     careers@cozycornercare.com
-                  </p>
-                  <div style={{ marginTop: "40px" }}>
-                    <GradientButton
-                      label="Request Call Back"
-                      icon={<HeartFilled />}
-                      onClick={handleGradientButtonClick}
-                    />
-                  </div>
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card
-                  title="Address"
-                  size="small"
-                  style={{
-                    margin: "12px",
-                    minHeight: "240px",
-                    minWidth: "80%",
-                    border: "1px solid #015BBB",
-                  }}
-                >
-                  <p>Cozy Corner Care Ltd.,</p>
-                  <p>
-                    Suit 49,
-                    <br />
-                    The Wenta Business Centre,
-                    <br />
-                    Innova Business Park,
-                    <br />
-                    Electric Ave, Enfield
-                    <br />
-                    EN3 7XU
                   </p>
                 </Card>
               </Col>
