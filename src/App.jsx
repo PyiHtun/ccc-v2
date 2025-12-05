@@ -8,6 +8,7 @@ import GradientButton from "./component/GradientButton.jsx";
 import ServiceItem from "./component/ServiceItem.jsx";
 import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
+import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
 import useWindowSize from "./hook/useWindowSize";
 
 import "./App.css";
@@ -84,50 +85,50 @@ const menuItems = [
 ];
 
 // Custom FloatButton group for quick contact actions
-const FloatButtonWrapper = () => (
-  <FloatButton.Group
-    shape="circle"
-    size="large"
-    style={{
-      position: "fixed",
-      bottom: 20,
-      right: 20,
-      zIndex: 9999,
-    }}
-  >
-    <FloatButton
-      icon={<PhoneTwoTone style={{ fontSize: 20 }}/>}
-      onClick={() => (window.location.href = "tel:02039243451")}
-      style={{
-        backgroundColor: "#015BBB",
-        color: "#015BBB",
-        width: 60,
-        height: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    />
-    <FloatButton
-      icon={<MailTwoTone />}
-      style={{
-        backgroundColor: "#015BBB",
-        color: "#015BBB",
-        width: 60,
-        height: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-      onClick={() => {
-        const contactSection = document.getElementById("contact");
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: "smooth" });
-        }
-      }}
-    />
-  </FloatButton.Group>
-);
+// const FloatButtonWrapper = () => (
+//   <FloatButton.Group
+//     shape="circle"
+//     size="large"
+//     style={{
+//       position: "fixed",
+//       bottom: 20,
+//       right: 20,
+//       zIndex: 9999,
+//     }}
+//   >
+//     <FloatButton
+//       icon={<PhoneTwoTone style={{ fontSize: 20 }}/>}
+//       onClick={() => (window.location.href = "tel:02039243451")}
+//       style={{
+//         backgroundColor: "#015BBB",
+//         color: "#015BBB",
+//         width: 60,
+//         height: 60,
+//         display: "flex",
+//         alignItems: "center",
+//         justifyContent: "center",
+//       }}
+//     />
+//     <FloatButton
+//       icon={<MailTwoTone />}
+//       style={{
+//         backgroundColor: "#015BBB",
+//         color: "#015BBB",
+//         width: 60,
+//         height: 60,
+//         display: "flex",
+//         alignItems: "center",
+//         justifyContent: "center",
+//       }}
+//       onClick={() => {
+//         const contactSection = document.getElementById("contact");
+//         if (contactSection) {
+//           contactSection.scrollIntoView({ behavior: "smooth" });
+//         }
+//       }}
+//     />
+//   </FloatButton.Group>
+// );
 
 // Style for service grid cards
 const gridStyle = {
@@ -285,7 +286,7 @@ function App() {
                     showDrawer({
                       title: "Let's Connect",
                       image: card1,
-                      description: "Leave your contact and we will reach out",
+                      description: "Reach out to us with your needs or concerns. We'll listen carefully, answer any questions you have, and gather important information about your situation, so we can begin to understand what kind of care and support will suit you best.",
                     })
                   }
                 />

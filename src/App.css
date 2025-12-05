@@ -78,6 +78,17 @@
   }
 }
 
+.float-btn--brand .ant-float-btn-body {
+  background-color: #015BBB !important;
+  border-color: transparent !important;
+}
+.float-btn--brand .ant-float-btn-icon {
+  color: #fff !important;
+}
+.float-btn--brand:hover .ant-float-btn-body {
+  background-color: #014399 !important;
+}
+
 .mobile-header {
   display: none;
 }
