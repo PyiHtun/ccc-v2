@@ -301,11 +301,9 @@ function enableAnalytics() {
       </Title>
 
       <Paragraph className="hero-subtitle">
-        We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide
-        high-quality homecare and support across North London - Middlesex and Hertfordshire, helping adults live
-        independently and with dignity at home. Our experienced team of carers, led by NHS-qualified nurses, delivers personalised care, from daily assistance
-        and companionship to specialist clinical support. Every visit, conversation, and smile reflects our mission:
-        to make each day feel safer, brighter, and more connected.
+        We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide person-centred, 
+        high-quality homecare across North London (Middlesex and Hertfordshire). Led by NHS-qualified nurses, our experienced carers offer personalised support from daily assistance and companionship to 
+        specialist clinical care.
       </Paragraph>
     </Typography>
    </div> 
