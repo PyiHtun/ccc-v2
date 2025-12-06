@@ -76,7 +76,65 @@
     width: 100%;
     background: #ffffff;
   }
+
+  .hero-wrap { padding: 40px 12px 24px; }
+  .hero-subtitle { font-size: 15px; }
+  .hero-cta { padding: 12px; }
 }
+
+
+/* Hero */
+.hero-wrap {
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  margin-bottom: 8px !important;
+  font-weight: 700 !important;        /* slightly lighter */
+  color: #015BBB !important;          /* brand blue */
+  letter-spacing: 0.3px;
+  font-size: 2.2rem !important;       /* smaller, more balanced */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* subtle polish */
+}
+
+.hero-subtitle {
+  margin: 0 auto 24px;
+  max-width: 900px;
+  color: rgba(0,0,0,0.68) !important;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.hero-cta {
+  margin: 18px auto 6px;
+  max-width: 760px;
+  background: #f0f7ff;
+  border: 1px solid #cfe4ff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(1, 91, 187, 0.08);
+}
+
+.hero-cta-title {
+  font-weight: 600;
+  color: #015BBB;
+  margin-bottom: 12px;
+}
+
+.hero-search .ant-input,
+.hero-search .ant-input-affix-wrapper,
+.hero-search .ant-input-search-button {
+  height: 44px; /* nice, touch-friendly */
+}
+
 
 .float-btn--brand .ant-float-btn-body {
   background-color: #015BBB !important;

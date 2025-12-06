@@ -281,9 +281,37 @@ function enableAnalytics() {
 
       <Content className="content-container">
         {/* Carousel Section */}
-        <div>
+        {/* <div>
+            <Typography>
+              <Title>More than a care agency</Title>
+              <Paragraph>
+                We're companions, listeners, and trusted professionals.
+                At Cozy Corner Care, we provide high-quality homecare and support services across North London(Enfield, Barnet), helping adults live independently and with dignity in their own homes. Our experienced team of carers, led by NHS-qualified nurses, deliver personalised care from daily assistance and companionship to specialist clinical support.
+                We believe true care goes beyond routines — it's about understanding people, respecting individuality, and nurturing wellbeing. Every visit, conversation, and smile reflects our mission: to make every day feel safer, brighter, and more connected.
+              </Paragraph>
+              
+            </Typography>
           <FloatButtonWrapper />
-        </div>
+        </div> */}
+        <section className="hero-wrap">
+  <div className="hero-inner">
+    <Typography>
+      <Title level={1} className="hero-title">
+        More than a care agency
+      </Title>
+
+      <Paragraph className="hero-subtitle">
+        We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide
+        high-quality homecare and support across North London - Middlesex and Hertfordshire, helping adults live
+        independently and with dignity at home. Our experienced team of carers, led by NHS-qualified nurses, delivers personalised care, from daily assistance
+        and companionship to specialist clinical support. Every visit, conversation, and smile reflects our mission:
+        to make each day feel safer, brighter, and more connected.
+      </Paragraph>
+    </Typography>
+   </div> 
+  <FloatButtonWrapper />
+</section>
+
         {/* Search Section */}
         <Row justify="center" align="center">
           <Col span={19} style={{ textAlign: "center" }}>
