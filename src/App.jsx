@@ -76,7 +76,7 @@ import {
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Title, Paragraph, Text, Link } = Typography;
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzznvyoe"; // ← replace
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnkvlp"; // ← replace
 
 // Global menu items used for navigation headers
 const menuItems = [
