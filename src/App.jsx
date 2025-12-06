@@ -11,7 +11,7 @@ import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
 import CookieBanner from "./component/CookieBanner.jsx";
 import useWindowSize from "./hook/useWindowSize";
-
+import { useForm } from "@formspree/react";
 import "./App.css";
 
 // Images
@@ -152,7 +152,7 @@ function App() {
   const searchRef = useRef(null);
   const { width } = useWindowSize();
   const [sending, setSending] = useState(false);
-
+  const [fsState, fsHandleSubmit] = useForm("mblnkvlp");
   // Data for the About Us section
   const aboutUsData = [
     {
@@ -180,50 +180,50 @@ function App() {
   // };
 
   // Validate email or phone number input using regex
- const handleSearch = async () => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^(?:\+?\d{1,3}[- ]?)?(?:\d[- ]?){6,14}\d$/;
+  const handleSearch = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(?:\+?\d{1,3}[- ]?)?(?:\d[- ]?){6,14}\d$/;
 
-  const value = (searchValue || "").trim();
+    const value = (searchValue || "").trim();
 
-  if (!emailRegex.test(value) && !phoneRegex.test(value)) {
-    message.error("Invalid input! Please enter a valid email or phone number.");
-    searchRef.current?.focus();
-    return;
-  }
+    if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+      message.error("Invalid input! Please enter a valid email or phone number.");
+      searchRef.current?.focus();
+      return;
+    }
 
-  setSending(true);
-  try {
-    // Build payload (Formspree loves FormData)
-    const formData = new FormData();
-    formData.append("contact", value);           // your single input
-    formData.append("page", window.location.href);
-    formData.append("_subject", "New website enquiry (contact)");
-    formData.append("_gotcha", "");              // honeypot: bots tend to fill this
-    formData.append("_subject", "CCC Website: contact lead");
-    formData.append("source", "homepage-hero"); // or any page/section
+    setSending(true);
+    try {
+      // Build payload for Formspree
+      const form = new FormData();
+      form.append("contact", value);
+      form.append("page", window.location.href);
+      form.append("_subject", "CCC Website: contact lead");
+      form.append("_gotcha", "");
+      form.append("source", "homepage-hero");
 
-    const res = await fetch(FORMSPREE_ENDPOINT, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: formData,
-    });
+      // Use Formspree hook (handles reCAPTCHA automatically)
+      const result = await fsHandleSubmit(form);
 
-    if (!res.ok) throw new Error("Network error");
+      if (result?.response?.ok) {
+        message.success("Thanks! We’ll contact you shortly.");
+        setSuccessful(true);
+        setSearchValue("");
+        searchRef.current?.blur();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        message.error("Sorry, failed to send. Please try again.");
+        searchRef.current?.focus();
+      }
+    } catch (err) {
+      console.error(err);
+      message.error("Sorry, failed to send. Please try again.");
+      searchRef.current?.focus();
+    } finally {
+      setSending(false);
+    }
+  };
 
-    message.success("Thanks! We’ll contact you shortly.");
-    setSuccessful(true);
-    setSearchValue("");
-    searchRef.current?.blur();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } catch (err) {
-    console.error(err);
-    message.error("Sorry, failed to send. Please try again.");
-    searchRef.current?.focus();
-  } finally {
-    setSending(false);
-  }
-};
 
   const handleChange = (e) => setSearchValue(e.target.value);
 
@@ -291,21 +291,19 @@ function enableAnalytics() {
               message="Leave your contact number or email, and we'll be in touch soon..."
               description={
                 <Search
-                  ref={searchRef}
-                  className="custom-search"
-                  placeholder="Contact Number or Email"
-                  enterButton={
-                    successful ? <CheckCircleFilled /> : <SendOutlined />
-                  }
-                  size="large"
-                  style={{ width: "100%" }}
-                  value={searchValue}
-                  onChange={handleChange}
-                  onSearch={handleSearch}
-                  onFocus={() => setSuccessful(false)}
-                  loading={sending}          // 👈 AntD 5: shows spinner in the button
-                  disabled={sending}         // 👈 optional: prevent double submits
-                />
+                ref={searchRef}
+                className="custom-search"
+                placeholder="Contact Number or Email"
+                enterButton={successful ? <CheckCircleFilled /> : <SendOutlined />}
+                size="large"
+                style={{ width: "100%" }}
+                value={searchValue}
+                onChange={handleChange}
+                onSearch={handleSearch}
+                onFocus={() => setSuccessful(false)}
+                loading={sending || fsState.submitting}   // ← show spinner while sending
+                disabled={sending || fsState.submitting}  // ← prevent double submit
+              />
               }
               type="info"
               style={{
