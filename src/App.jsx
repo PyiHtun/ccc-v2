@@ -153,14 +153,17 @@ function App() {
   // Data for the About Us section
   const aboutUsData = [
     {
+      description: "At Cozy Corner Care, we believe outstanding homecare begins with compassion and clinical excellence. Founded and managed by experienced NHS nurses, our mission is to provide personalised, professional, and heartfelt care that enables people to live safely and happily in their own homes. We understand that every person's needs are uniquethat's why our care plans are tailored, flexible, and centred around dignity, respect, and independence. Whether it's a few hours of support a week or round-the-clock live-in care, we focus on creating meaningful relationships that promote comfort and wellbeing.",
+    }, 
+    {
       avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=17",
       title: "Angela Kimani - Nominated Individual",
-      description: <Skeleton paragraph={{ rows: 8 }} active />,
+      description: "After years working within the NHS, I've seen how the smallest acts of compassion can make the biggest difference. At Cozy Corner Care, we focus on building genuine relationships not just completing tasks. Every visit, every conversation, every smile helps someone feel safe, valued, and cared for in their own home.",
     },
     {
       avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=9",
       title: "Thu Aung - Registered Manager",
-      description: <Skeleton paragraph={{ rows: 6 }} active />,
+      description: "Quality care isn't just about clinical skills it's about empathy, dignity, and consistency. Our team brings both medical knowledge and a human touch to every client we support. We believe in providing the same standard of care we'd want for our own families.",
     },
   ];
 
@@ -301,7 +304,7 @@ function App() {
                       title: "Free Consultation",
                       image: card2,
                       description:
-                        "Voice call or Video call or face to face meeting",
+                        "We'll arrange a no-obligation consultation (phone, video or in-person) to discuss your circumstances in more detail. This helps us assess daily living needs, preferences, and routines so we can recommend the right type and level of support tailored to you.",
                     })
                   }
                 />
@@ -316,7 +319,7 @@ function App() {
                       title: "Review Care Plan",
                       image: card3,
                       description:
-                        "We will come up with a free care plan based on our consultation sessions",
+                        "Based on our consultation, we'll propose a personalised care plan that outlines the services, schedule, and caregiver support you'll receive, flexible and adjustable to fit your life, health, and wellbeing needs.",
                     })
                   }
                 />
@@ -331,7 +334,7 @@ function App() {
                       title: "Care at Cozy Corner",
                       image: card4,
                       description:
-                        "Let's start our journey together for better times",
+                        "Once you approve the plan, our trusted caregivers start delivering support helping with daily tasks, personal care, household assistance or companionship. We’re committed to providing safe, respectful and compassionate help so you (or your loved one) can enjoy independence and peace of mind.",
                     })
                   }
                 />
@@ -387,7 +390,7 @@ function App() {
                     title: "Homecare care",
                     logo: serviceHomeCare,
                     description:
-                      "Let's start our journey together for better times",
+                      "Our Homecare service provides personal, reliable support with everyday living from washing, dressing, and meal preparation to companionship and mobility assistance. You'll receive help right where you're most comfortable: at home. We focus on dignity, independence, and compassionate care delivered by trained, DBS-checked carers who truly care about your wellbeing. Call us today to discuss how our homecare can fit around your lifestyle.",
                   })
                 }
               >
@@ -404,7 +407,7 @@ function App() {
                     title: "Respite care",
                     logo: serviceRespite,
                     description:
-                      "Let's start our journey together for better times",
+                      "Respite Care gives family members and regular carers a well-deserved break while ensuring their loved ones continue to receive quality support. Whether it's for a few hours, a weekend, or longer, our professional carers provide temporary cover with the same kindness and consistency as permanent staff. It's a safe, stress-free way to rest and recharge. Speak with us to arrange short-term or emergency respite care when you need it.",
                   })
                 }
               >
@@ -418,7 +421,7 @@ function App() {
                     title: "Home from Hospital care",
                     logo: serviceHomeHosp,
                     description:
-                      "Let's start our journey together for better times",
+                      "Recovering after a hospital stay can be daunting. Our Home-from-Hospital Care helps you transition smoothly back home with daily assistance, medication support, mobility help, and monitoring of recovery routines. We work closely with hospital discharge teams and families to reduce readmission risks and speed up rehabilitation. Contact us before discharge to plan your safe return home.",
                   })
                 }
               >
@@ -435,7 +438,7 @@ function App() {
                     title: "Specialist care",
                     logo: serviceSpecialist,
                     description:
-                      "Let's start our journey together for better times",
+                      "For individuals living with complex or long-term conditions such as dementia, Parkinson's, MS, stroke recovery, or palliative needs, our Specialist Care offers expert, person-centred support. Each carer is specially trained and follows a detailed care plan developed with families and health professionals. Our goal is to preserve comfort, dignity, and quality of life every day. Call us to learn how our experienced carers can support specialist care needs.",
                   })
                 }
               >
@@ -449,7 +452,7 @@ function App() {
                     title: "Companionship",
                     logo: serviceCompanion,
                     description:
-                      "Let's start our journey together for better times",
+                      "Loneliness can affect anyone. Our Companionship service provides friendly, engaging carers who visit to chat, share hobbies, accompany you to appointments, or simply offer a reassuring presence. This service improves mental wellbeing, confidence, and quality of life especially for those living alone. Reach out today to arrange regular companionship visits.",
                   })
                 }
               >
@@ -463,7 +466,7 @@ function App() {
                     title: "Night Care",
                     logo: serviceNightCare,
                     description:
-                      "Let's start our journey together for better times",
+                      "When peace of mind at night matters, our Night Care service ensures safety and comfort around the clock. We offer waking or sleeping night options for assistance with toileting, medication, repositioning, or reassurance during the night. Families can rest easy knowing a professional carer is on hand if anything is needed. Call us to arrange flexible overnight support that suits your routine.",
                   })
                 }
               >
@@ -477,7 +480,7 @@ function App() {
                     title: "Live-in Care",
                     logo: serviceLiveIn, // <-- add/import an icon for Live-in Care
                     description:
-                      "Let's start our journey together for better times",
+                      "Live-in Care provides full-time, round-the-clock support in the familiarity of your own home. A dedicated carer lives with you, offering personal care, companionship, meal prep, medication reminders, and household help tailored to your unique preferences and schedule. It's a comforting alternative to residential care, maintaining independence with complete peace of mind. Talk to us about matching you with a caring live-in professional.",
                   })
                 }
               >
@@ -491,7 +494,7 @@ function App() {
                     title: "Medication Administration",
                     logo: serviceMedication,
                     description:
-                      "Let's start our journey together for better times",
+                      "Taking medication correctly is vital but can be confusing especially with multiple prescriptions. Our trained carers manage medication times, doses, and records with precision and care, liaising with pharmacists or GPs if needed. We ensure you never miss or duplicate doses, keeping you safe and confident in your treatment. Call us to learn how we can support safe daily medication routines.",
                   })
                 }
               >
@@ -508,7 +511,8 @@ function App() {
                     title: "Personal Assistance/Outings",
                     logo: servicePersonalAssistant,
                     description:
-                      "Let's start our journey together for better times",
+                      "Need an extra hand getting out and about? Our Personal Assistance and Outings service helps with errands, appointments, shopping, leisure activities, and social visits. Whether you want to stay active or simply have company while you're out, we'll make sure you travel safely and enjoyably. Book your personal assistant today and make every outing stress-free.",
+
                   })
                 }
               >
@@ -525,7 +529,7 @@ function App() {
                     title: "Autism and LD",
                     logo: serviceLD,
                     description:
-                      "Let's start our journey together for better times",
+                      "Our Autism and Learning-Disability Care provides structured, patient, and individualised support for people of all ages. We focus on communication, routine, independence, and sensory understanding delivered by carers trained to support neurodiverse individuals with empathy and respect. Families appreciate our flexible, consistent approach that builds trust and confidence. Contact us to arrange a personalised care plan for autism or learning-disability support.",
                   })
                 }
               >
