@@ -75,6 +75,7 @@ import {
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Title, Paragraph, Text, Link } = Typography;
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzznvyoe"; // ← replace
 
 // Global menu items used for navigation headers
 const menuItems = [
@@ -149,6 +150,7 @@ function App() {
   const [successful, setSuccessful] = useState(false);
   const searchRef = useRef(null);
   const { width } = useWindowSize();
+  const [sending, setSending] = useState(false);
 
   // Data for the About Us section
   const aboutUsData = [
@@ -177,33 +179,50 @@ function App() {
   // };
 
   // Validate email or phone number input using regex
-  const handleSearch = (value) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^(?:\+?\d{1,3}[- ]?)?(?:\d[- ]?){6,14}\d$/;
-    if (emailRegex.test(searchValue) || phoneRegex.test(searchValue)) {
-      console.log("Valid input:", searchValue);
-      message.success("Success!");
-      setSuccessful(true);
-      setSearchValue("");
-      if (searchRef.current) {
-        searchRef.current.blur();
-      }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      console.error(
-        "Invalid input! Please enter a valid email or phone number.",
-      );
-      message.error(
-        "Invalid input! Please enter a valid email or phone number.",
-      );
-      window.scrollTo({ top: 0, behavior: "smooth" });
+ const handleSearch = async () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^(?:\+?\d{1,3}[- ]?)?(?:\d[- ]?){6,14}\d$/;
 
-      // Refocus the input
-      if (searchRef.current) {
-        searchRef.current.focus();
-      }
-    }
-  };
+  const value = (searchValue || "").trim();
+
+  if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+    message.error("Invalid input! Please enter a valid email or phone number.");
+    searchRef.current?.focus();
+    return;
+  }
+
+  setSending(true);
+  try {
+    // Build payload (Formspree loves FormData)
+    const formData = new FormData();
+    formData.append("contact", value);           // your single input
+    formData.append("page", window.location.href);
+    formData.append("_subject", "New website enquiry (contact)");
+    formData.append("_gotcha", "");              // honeypot: bots tend to fill this
+    formData.append("_subject", "CCC Website: contact lead");
+    formData.append("source", "homepage-hero"); // or any page/section
+
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error("Network error");
+
+    message.success("Thanks! We’ll contact you shortly.");
+    setSuccessful(true);
+    setSearchValue("");
+    searchRef.current?.blur();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (err) {
+    console.error(err);
+    message.error("Sorry, failed to send. Please try again.");
+    searchRef.current?.focus();
+  } finally {
+    setSending(false);
+  }
+};
 
   const handleChange = (e) => setSearchValue(e.target.value);
 
@@ -251,7 +270,7 @@ function App() {
         </div>
         {/* Search Section */}
         <Row justify="center" align="center">
-          <Col span={21} style={{ textAlign: "center" }}>
+          <Col span={19} style={{ textAlign: "center" }}>
             <Alert
               message="Leave your contact number or email, and we'll be in touch soon..."
               description={
@@ -268,6 +287,8 @@ function App() {
                   onChange={handleChange}
                   onSearch={handleSearch}
                   onFocus={() => setSuccessful(false)}
+                  loading={sending}          // 👈 AntD 5: shows spinner in the button
+                  disabled={sending}         // 👈 optional: prevent double submits
                 />
               }
               type="info"
