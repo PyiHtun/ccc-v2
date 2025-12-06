@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // Custom components and hooks
 import HeaderDesktop from "./component/HeaderDesktop.jsx";
@@ -195,32 +195,21 @@ function App() {
       return;
     }
 
-    setSending(true);
     try {
-      // Build Formspree payload (no synthetic event)
-      const form = new FormData();
-      form.append("contact", value);
-      form.append("page", window.location.href);
-      form.append("_subject", "CCC Website: contact lead");
-      form.append("_gotcha", "");              // honeypot
-      form.append("source", "homepage-hero");
-      if (isEmail) form.append("_replyto", value); // helps deliverability
+      setSending(true);
 
-      // Submit via Formspree hook — reCAPTCHA handled automatically
-      const result = await fsHandleSubmit(form);
+      // Fill hidden inputs
+      const formEl = formRef.current;
+      formEl.elements.contact.value = value;
+      formEl.elements.page.value = window.location.href;
+      formEl.elements.source.value = "homepage-hero";
+      formEl.elements._gotcha.value = ""; // honeypot
 
-      if (result?.response?.ok) {
-        message.success("Thanks! We’ll contact you shortly.");
-        setSuccessful(true);
-        setSearchValue("");
-        searchRef.current?.blur();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        message.error("Sorry, failed to send. Please try again.");
-        searchRef.current?.focus();
-        // Optional: quick debug
-        console.debug("Formspree result", result);
-      }
+      // Submit the real form: this triggers Formspree hook + built-in reCAPTCHA
+      formEl.requestSubmit(); // modern, cleaner than formEl.submit()
+
+      // Let the hook update fsState.submitting; you don’t await here.
+      // Use an effect if you want to react to fsState.succeeded/fsState.errors.
     } catch (err) {
       console.error(err);
       message.error("Sorry, failed to send. Please try again.");
@@ -229,6 +218,20 @@ function App() {
       setSending(false);
     }
   };
+
+  useEffect(() => {
+    if (fsState.succeeded) {
+      message.success("Thanks! We’ll contact you shortly.");
+      setSuccessful(true);
+      setSearchValue("");
+      searchRef.current?.blur();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    if (fsState.errors?.length) {
+      message.error("Sorry, failed to send. Please try again.");
+      searchRef.current?.focus();
+    }
+  }, [fsState.succeeded, fsState.errors]);
 
 
   const handleChange = (e) => setSearchValue(e.target.value);
@@ -318,6 +321,22 @@ function enableAnalytics() {
                 marginBottom: "20px",
               }}
             />
+            <form ref={formRef} onSubmit={fsHandleSubmit} style={{ display: "none" }}>
+              <input type="hidden" name="contact" />
+              <input type="hidden" name="page" />
+              <input type="hidden" name="source" />
+              {/* honeypot */}
+              <input
+                type="text"
+                name="_gotcha"
+                tabIndex="-1"
+                autoComplete="off"
+                style={{ display: "none" }}
+              />
+              <input type="hidden" name="_subject" value="CCC Website: contact lead" />
+              {/* ensure a submit control exists for requestSubmit() */}
+              <button type="submit" style={{ display: "none" }} />
+            </form>
           </Col>
         </Row>
 
