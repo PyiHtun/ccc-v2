@@ -294,21 +294,21 @@ function enableAnalytics() {
           <FloatButtonWrapper />
         </div> */}
         <section className="hero-wrap">
-  <div className="hero-inner">
-    <Typography>
-      <Title level={1} className="hero-title">
-        More than a care agency
-      </Title>
+          <div className="hero-inner">
+            <Typography>
+              <Title level={1} className="hero-title">
+                More than a care agency
+              </Title>
 
-      <Paragraph className="hero-subtitle">
-        We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide person-centred, 
-        high-quality homecare across North London (Middlesex and Hertfordshire). Led by NHS-qualified nurses, our experienced carers offer personalised support from daily assistance and companionship to 
-        specialist clinical care.
-      </Paragraph>
-    </Typography>
-   </div> 
-  <FloatButtonWrapper />
-</section>
+              <Paragraph className="hero-subtitle">
+                We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide person-centred, 
+                high-quality homecare across North London (Middlesex and Hertfordshire). Led by NHS-qualified nurses, our experienced carers offer personalised support from daily assistance and companionship to 
+                specialist clinical care.
+              </Paragraph>
+            </Typography>
+          </div> 
+          <FloatButtonWrapper />
+        </section>
 
         {/* Search Section */}
         <Row justify="center" align="center">
