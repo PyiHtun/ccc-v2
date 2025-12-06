@@ -199,6 +199,7 @@ function App() {
     formData.append("contact", value);           // your single input
     formData.append("page", window.location.href);
     formData.append("_gotcha", "");              // honeypot: bots tend to fill this
+    formData.append("message", "Contact request from Cozy Corner Care website");
     formData.append("_subject", "CCC Website: contact lead");
     formData.append("source", "homepage-hero"); // or any page/section
 
