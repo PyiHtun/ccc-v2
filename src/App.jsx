@@ -76,7 +76,7 @@ import {
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Title, Paragraph, Text, Link } = Typography;
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzznvyoe"; // ← replace
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnkvlp"; // ← replace
 
 // Global menu items used for navigation headers
 const menuItems = [
@@ -198,7 +198,6 @@ function App() {
     const formData = new FormData();
     formData.append("contact", value);           // your single input
     formData.append("page", window.location.href);
-    formData.append("_subject", "New website enquiry (contact)");
     formData.append("_gotcha", "");              // honeypot: bots tend to fill this
     formData.append("_subject", "CCC Website: contact lead");
     formData.append("source", "homepage-hero"); // or any page/section
@@ -228,11 +227,11 @@ function App() {
   const handleChange = (e) => setSearchValue(e.target.value);
 
   // Focus the search input when the gradient button is clicked
-  const handleGradientButtonClick = () => {
-    if (searchRef.current) {
-      searchRef.current.focus();
-    }
-  };
+  // const handleGradientButtonClick = () => {
+  //   if (searchRef.current) {
+  //     searchRef.current.focus();
+  //   }
+  // };
 
   // Open the drawer with card details
   const showDrawer = (card) => {
@@ -680,7 +679,7 @@ function enableAnalytics() {
               </Col>
               <Col span={12}>
                 <Card
-                  title="Phone"
+                  title="Contacts"
                   size="small"
                   style={{
                     margin: "12px",
