@@ -76,7 +76,6 @@ import {
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 const { Title, Paragraph, Text, Link } = Typography;
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnkvlp"; // ← replace
 
 // Global menu items used for navigation headers
 const menuItems = [
@@ -153,6 +152,8 @@ function App() {
   const { width } = useWindowSize();
   const [sending, setSending] = useState(false);
   const [fsState, fsHandleSubmit] = useForm("mblnkvlp");
+  const formRef = useRef(null);
+
   // Data for the About Us section
   const aboutUsData = [
     {
@@ -185,8 +186,10 @@ function App() {
     const phoneRegex = /^(?:\+?\d{1,3}[- ]?)?(?:\d[- ]?){6,14}\d$/;
 
     const value = (searchValue || "").trim();
+    const isEmail = emailRegex.test(value);
+    const isPhone = phoneRegex.test(value);
 
-    if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+    if (!isEmail && !isPhone) {
       message.error("Invalid input! Please enter a valid email or phone number.");
       searchRef.current?.focus();
       return;
@@ -194,15 +197,16 @@ function App() {
 
     setSending(true);
     try {
-      // Build payload for Formspree
+      // Build Formspree payload (no synthetic event)
       const form = new FormData();
       form.append("contact", value);
       form.append("page", window.location.href);
       form.append("_subject", "CCC Website: contact lead");
-      form.append("_gotcha", "");
+      form.append("_gotcha", "");              // honeypot
       form.append("source", "homepage-hero");
+      if (isEmail) form.append("_replyto", value); // helps deliverability
 
-      // Use Formspree hook (handles reCAPTCHA automatically)
+      // Submit via Formspree hook — reCAPTCHA handled automatically
       const result = await fsHandleSubmit(form);
 
       if (result?.response?.ok) {
@@ -214,6 +218,8 @@ function App() {
       } else {
         message.error("Sorry, failed to send. Please try again.");
         searchRef.current?.focus();
+        // Optional: quick debug
+        console.debug("Formspree result", result);
       }
     } catch (err) {
       console.error(err);
