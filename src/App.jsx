@@ -9,6 +9,7 @@ import ServiceItem from "./component/ServiceItem.jsx";
 import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
+import CookieBanner from "./component/CookieBanner.jsx";
 import useWindowSize from "./hook/useWindowSize";
 
 import "./App.css";
@@ -251,6 +252,21 @@ function App() {
         message.error("Failed to copy email.");
       });
   };
+
+  
+// Optional: load analytics only after consent
+function enableAnalytics() {
+  // Example: Google Analytics — run ONLY after consent
+  // const s = document.createElement("script");
+  // s.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX";
+  // s.async = true;
+  // document.head.appendChild(s);
+  // window.dataLayer = window.dataLayer || [];
+  // function gtag(){ window.dataLayer.push(arguments); }
+  // window.gtag = gtag;
+  // gtag("js", new Date());
+  // gtag("config", "G-XXXXXXX");
+}
 
   return (
     <Layout style={{ minHeight: "100vh", background: "#ffffff" }}>
@@ -799,6 +815,7 @@ function App() {
           </Row>
         </div>
       </Footer>
+      <CookieBanner onAccept={enableAnalytics} />
     </Layout>
   );
 }
