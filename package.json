@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://pyihtun.github.io/ccc-v2",
+  "homepage": "https://www.cozycornercare.com",
 
   "scripts": {
     "dev": "vite",
