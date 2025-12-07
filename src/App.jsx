@@ -301,8 +301,7 @@ function enableAnalytics() {
 
               <Paragraph className="hero-subtitle">
                 We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide person-centred, 
-                high-quality homecare across North London (Middlesex and Hertfordshire). Led by NHS-qualified nurses, our experienced carers offer personalised support from daily assistance and companionship to 
-                specialist clinical care.
+                high-quality homecare across North London and Hertfordshire including Barnet, Enfield, Potters Bar and surrounding areas.
               </Paragraph>
             </Typography>
           </div> 
