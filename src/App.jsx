@@ -4,7 +4,6 @@ import React, { useRef, useState } from "react";
 import HeaderDesktop from "./component/HeaderDesktop.jsx";
 import HeaderMobile from "./component/HeaderMobile.jsx";
 import CustomListItems from "./component/CustomListItems.jsx";
-import GradientButton from "./component/GradientButton.jsx";
 import ServiceItem from "./component/ServiceItem.jsx";
 import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
@@ -319,7 +318,7 @@ function enableAnalytics() {
                 <Search
                   ref={searchRef}
                   className="custom-search"
-                  placeholder="Contact Number or Email"
+                  placeholder="Contact No. or Email"
                   enterButton={
                     successful ? <CheckCircleFilled /> : <SendOutlined />
                   }
