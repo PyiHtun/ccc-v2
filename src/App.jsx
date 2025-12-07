@@ -713,10 +713,28 @@ function enableAnalytics() {
                     border: "1px solid #015BBB",
                   }}
                 >
-                  <p>
-                    <PhoneFilled
-                      style={{ color: "#015BBB", marginRight: "8px" }}
-                    />
+                 <p
+                    onClick={() => (window.location.href = "tel:02039243451")}
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-flex",      // makes <p> shrink to its content
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#000",
+                      margin: "0 auto",            // centers the inline-flex block
+                      paddingBottom: "10px", 
+
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      (e.key === "Enter" || e.key === " ") &&
+                      (window.location.href = "tel:02039243451")
+                    }
+                    title="Call us"
+                    aria-label="Call Cozy Corner Care"
+                  >
+                    <PhoneFilled style={{ color: "#015BBB", marginRight: 8 }} />
                     0203 924 3451
                   </p>
                   <p onClick={() => handleCopyEmail("info@cozycornercare.com")}>
