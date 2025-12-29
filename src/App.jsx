@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // Custom components and hooks
 import HeaderDesktop from "./component/HeaderDesktop.jsx";
@@ -15,7 +15,7 @@ import "./App.css";
 
 // Images
 import logo from "./img/ccc_main_2.png";
-import card1 from "./img/card-connect-pexels.jpg";
+import card1 from "./img/card-connect2-pexels.jpg";
 import card2 from "./img/card-consultation-pexels.jpg";
 import card3 from "./img/card-review-pexels.jpg";
 import card4 from "./img/card-ccc.jpg";
@@ -152,6 +152,47 @@ function App() {
   const { width } = useWindowSize();
   const [sending, setSending] = useState(false);
 
+  
+  useEffect(() => {
+    const host = document.getElementById("cqc-widget");
+    if (!host) return;
+
+    // Load the widget script once
+    const existing = document.querySelector('script[data-cqc-widget="true"]');
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.dataset.cqcWidget = "true";
+    script.src =
+      "https://www.cqc.org.uk/sites/all/modules/custom/cqc_widget/widget.js" +
+      "?data-id=1-26179879651&data-host=www.cqc.org.uk&type=location";
+
+    // Observe body for whatever the widget injects, then move it into the footer container
+    const observer = new MutationObserver(() => {
+      // Try to find the widget root node that got injected
+      // (The widget usually injects an iframe or a container with CQC branding)
+      const injected =
+        document.querySelector("iframe[src*='cqc.org.uk']") ||
+        document.querySelector("[class*='cqc']") ||
+        document.querySelector("[id*='cqc']");
+
+      if (injected && host && !host.contains(injected)) {
+        host.appendChild(injected);
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    document.body.appendChild(script);
+
+    return () => {
+      observer.disconnect();
+      script.remove();
+    };
+  }, []);
+  
   // Data for the About Us section
   const aboutUsData = [
     {
@@ -279,29 +320,16 @@ function enableAnalytics() {
       </div>
 
       <Content className="content-container">
-        {/* Carousel Section */}
-        {/* <div>
-            <Typography>
-              <Title>More than a care agency</Title>
-              <Paragraph>
-                We're companions, listeners, and trusted professionals.
-                At Cozy Corner Care, we provide high-quality homecare and support services across North London(Enfield, Barnet), helping adults live independently and with dignity in their own homes. Our experienced team of carers, led by NHS-qualified nurses, deliver personalised care from daily assistance and companionship to specialist clinical support.
-                We believe true care goes beyond routines — it's about understanding people, respecting individuality, and nurturing wellbeing. Every visit, conversation, and smile reflects our mission: to make every day feel safer, brighter, and more connected.
-              </Paragraph>
-              
-            </Typography>
-          <FloatButtonWrapper />
-        </div> */}
         <section className="hero-wrap">
           <div className="hero-inner">
             <Typography>
               <Title level={1} className="hero-title">
-                More than a care agency
+                Compassionate Home Care You Can Trust
               </Title>
 
               <Paragraph className="hero-subtitle">
-                We're companions, listeners, and trusted professionals. At <strong>Cozy Corner Care</strong>, we provide person-centred, 
-                high-quality homecare across North London and Hertfordshire including Barnet, Enfield, Potters Bar and surrounding areas.
+                <strong>Cozy Corner Care</strong> is a <strong>Care Quality Commission(CQC) registered</strong> home care provider delivering safe, 
+                professional and person-centred support across North London and Hertfordshire.
               </Paragraph>
             </Typography>
           </div> 
@@ -789,7 +817,7 @@ function enableAnalytics() {
                     marginTop: "10px",
                   }}
                 />
-                <p style={{ fontStyle: "italic", marginBottom: "8px" }}>
+                <p style={{ fontStyle: "italic", marginBottom: "8px", marginTop: "8px" }}>
                   Elevating care with innovation and heart. Our approach is
                   deeply personal, shaped by founders who truly understand the
                   importance of compassionate care.
@@ -824,34 +852,7 @@ function enableAnalytics() {
             {/* Social Media Section */}
             <Col xs={24} md={8}>
               <div style={{ textAlign: "left" }}>
-                <h4 style={{ marginBottom: "16px" }}>Follow Us</h4>
-                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                  {/* <Tag icon={<TwitterOutlined />} color="#55acee">
-                    Twitter
-                  </Tag>
-                  <Tag icon={<YoutubeOutlined />} color="#cd201f">
-                    Youtube
-                  </Tag> */}
-                  <Tag icon={<FacebookOutlined />} color="#3b5999">
-                    Facebook
-                  </Tag>
-                  <Tag icon={<LinkedinOutlined />} color="#55acee">
-                    LinkedIn
-                  </Tag>
-                  <Tag icon={<InstagramOutlined />} color="#E1306C">
-                    Instagram
-                  </Tag>
-                </div>
-                <p>
-                  Icons by{" "}
-                  <a
-                    href="https://icons8.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Icons8
-                  </a>
-                </p>
+                <div id="cqc-widget"></div>
               </div>
             </Col>
           </Row>
