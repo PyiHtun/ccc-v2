@@ -1,16 +1,80 @@
-# React + Vite
+# React + Vite Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built with **React** and **Vite**, providing a fast development experience with Hot Module Replacement (HMR) and modern tooling.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* React
+* Vite
+* ESLint
+* Node.js / npm
 
-## React Compiler
+## Development Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
 
-## Expanding the ESLint configuration
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Open the app in your browser at:
+
+   ```
+   http://localhost:5173
+   ```
+
+## Build
+
+Before deployment, make sure all changes are complete and tested locally.
+
+1. Run the production build:
+
+   ```bash
+   npm run build
+   ```
+
+2. This command generates the production-ready files and **updates the `docs/` folder**, which is used for deployment.
+
+## Deployment
+
+This project is deployed using the contents of the `docs` folder.
+
+### Deployment Steps
+
+1. Make code changes.
+2. Test locally using:
+
+   ```bash
+   npm run dev
+   ```
+3. Create a production build:
+
+   ```bash
+   npm run build
+   ```
+4. Commit the updated `docs/` folder:
+
+   ```bash
+   git add docs
+   git commit -m "Build: update production files"
+   ```
+5. Push changes to the main branch:
+
+   ```bash
+   git push origin main
+   ```
+
+Once pushed, the application will be updated automatically based on the deployment configuration (e.g., GitHub Pages).
+
+## Notes
+
+* Always run `npm run build` **after** making code changes and **before** deploying.
+* Do not manually edit files inside the `docs/` folder—these are auto-generated.
+* If deployment issues occur, delete `docs/`, rebuild, and redeploy.
+

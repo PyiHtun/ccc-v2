@@ -276,7 +276,8 @@
 }
 
 .footer-container {
-  background: linear-gradient(135deg, #f7f9fc 0%, #e0eafb 100%);
+  background: #ffffff;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .map-responsive {
@@ -293,4 +294,20 @@
   width: 100%;
   height: 100%;
   border: 4px;
+}
+
+/* ===== CQC Widget (base / desktop) ===== */
+#cqc-widget {
+  max-width: 480px;
+  width: 100%;
+  /* IMPORTANT: don't fix height on the container */
+  overflow: visible;          /* avoid clipping */
+}
+
+#cqc-widget iframe,
+#cqc-widget > * {
+  width: 100% !important;
+  max-width: 480px;
+  border: 0;
+  display: block;
 }

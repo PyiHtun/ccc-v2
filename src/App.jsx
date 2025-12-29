@@ -806,7 +806,7 @@ function enableAnalytics() {
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Row gutter={[24, 24]}>
             {/* Brand Section */}
-            <Col xs={24} md={11}>
+            <Col xs={24} md={10}>
               <div style={{ textAlign: "left" }}>
                 <img
                   src={logo}
@@ -829,9 +829,9 @@ function enableAnalytics() {
             </Col>
 
             {/* Quick Links Section */}
-            <Col xs={24} md={5}>
+            <Col xs={24} md={4}>
               <div style={{ textAlign: "left" }}>
-                <h4 style={{ marginBottom: "16px" }}>Quick Links</h4>
+                <h4 style={{  marginTop: "12px", marginBottom: "16px" }}>Quick Links</h4>
                 <ul style={{ listStyle: "none", padding: 0 }}>
                   <li style={{ marginBottom: "8px" }}>
                     <a href="#home">Home</a>
@@ -850,7 +850,7 @@ function enableAnalytics() {
             </Col>
 
             {/* Social Media Section */}
-            <Col xs={24} md={8}>
+            <Col xs={24} md={10}>
               <div style={{ textAlign: "left" }}>
                 <div id="cqc-widget"></div>
               </div>
