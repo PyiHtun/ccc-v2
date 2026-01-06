@@ -38,6 +38,11 @@ import serviceLiveIn from "./img/services-live-in.png";
 
 import touchIcon from "./img/touch-32.png";
 
+import angelaAvatar from "./assets/avatar/AngeK.png"
+import thuAvatar from "./assets/avatar/TA.png"
+import cccAvatar from "./img/ccc_logo.png"
+
+
 // Ant Design components and icons
 import {
   message,
@@ -48,14 +53,7 @@ import {
   Input,
   Divider,
   Typography,
-  Carousel,
-  FloatButton,
-  Drawer,
   Card,
-  Skeleton,
-  Flex,
-  Tag,
-  Descriptions,
 } from "antd";
 import {
   PhoneTwoTone,
@@ -196,6 +194,7 @@ function App() {
   // Data for the About Us section
   const aboutUsData = [
     {
+      avatar: cccAvatar,
       description: `At Cozy Corner Care, we believe outstanding homecare begins with compassion and clinical excellence. 
       
       Founded and managed by experienced NHS nurses, our mission is to provide personalised, professional, and heartfelt care that enables people to live safely and happily in their own homes. We understand that every person's needs are uniquethat's why our care plans are tailored, flexible, and centred around dignity, respect, and independence. 
@@ -203,12 +202,12 @@ function App() {
       Whether it's a few hours of support a week or round-the-clock live-in care, we focus on creating meaningful relationships that promote comfort and wellbeing.`,
     }, 
     {
-      avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=17",
+      avatar: angelaAvatar,
       title: "Angela Kimani - Nominated Individual",
       description: `After years working within the NHS, I've seen how the smallest acts of compassion can make the biggest difference. At Cozy Corner Care, we focus on building genuine relationships not just completing tasks. Every visit, every conversation, every smile helps someone feel safe, valued, and cared for in their own home.`,
     },
     {
-      avatar: "https://api.dicebear.com/7.x/miniavs/svg?seed=9",
+      avatar: thuAvatar,
       title: "Thu Aung - Registered Manager",
       description: `Quality care isn't just about clinical skills it's about empathy, dignity, and consistency. Our team brings both medical knowledge and a human touch to every client we support. We believe in providing the same standard of care we'd want for our own families.`,
     },
@@ -485,7 +484,7 @@ function enableAnalytics() {
               Our Services
             </Divider>
             <CustomListItems
-              avatar="https://api.dicebear.com/7.x/miniavs/svg?seed=8"
+              avatar={cccAvatar}
               description="Choosing the right care service is crucial. Explore our range of care services below, simply tap any card to view detailed information about how we can support you or your loved ones with compassionate personal care, specialist dementia support, or assistance with disabilities."
             />
             <Card>
