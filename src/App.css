@@ -1,3 +1,38 @@
+:root {
+  --app-bg: #ffffff;
+  --surface-bg: #ffffff;
+  --text-color: #111827;
+  --muted-text-color: rgba(17, 24, 39, 0.72);
+  --border-color: #d1d5db;
+  --section-title-color: #015bbb;
+  --body-text-color: #1f2937;
+  --card-border-color: #cbd5e1;
+  --card-surface: #ffffff;
+  --card-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+  --header-bar-bg: #ffffff;
+  --header-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="dark"] {
+  --app-bg: #0b1220;
+  --surface-bg: #121a2a;
+  --text-color: #e5e7eb;
+  --muted-text-color: rgba(229, 231, 235, 0.8);
+  --border-color: #334155;
+  --section-title-color: #63a7ff;
+  --body-text-color: #dbe5f1;
+  --card-border-color: #475569;
+  --card-surface: #172033;
+  --card-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --header-bar-bg: #001529;
+  --header-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--text-color);
+}
+
 /* Hide the contact info on mobile screens */
 @media (max-width: 768px) {
   [id] {
@@ -17,9 +52,9 @@
     align-items: center;
     width: 100%;
     padding: 2px;
-    background: #ffffff;
+    background: var(--surface-bg);
     height: 40px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color);
     z-index: 1000;
   }
 
@@ -74,7 +109,7 @@
     display: block;
     position: fixed;
     width: 100%;
-    background: #ffffff;
+    background: var(--surface-bg);
   }
 
   .hero-wrap { padding: 40px 12px 10px; }
@@ -88,6 +123,9 @@
   background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
   padding-top: 20px;
   padding-bottom: 10px;
+}
+:root[data-theme="dark"] .hero-wrap {
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
 }
 
 .hero-inner {
@@ -108,7 +146,7 @@
 .hero-subtitle {
   margin: 0 auto 24px;
   max-width: 900px;
-  color: rgba(0,0,0,0.68) !important;
+  color: var(--muted-text-color) !important;
   line-height: 1.8;
   font-size: 16px;
 }
@@ -153,12 +191,55 @@
 .desktop-header {
   display: block;
   position: fixed;
+  background: var(--header-bar-bg) !important;
+}
+
+.desktop-header .ant-menu {
+  background: transparent !important;
 }
 
 .body-wrapper {
   padding: 20 12px 0; /* Top, right/left, and bottom padding */
   max-width: 1200px; /* Set a maximum width (adjust as needed) */
   margin: 0 auto; /* Centers the wrapper in the viewport */
+}
+
+.step-card.ant-card {
+  background: var(--card-surface);
+  border: 1px solid var(--card-border-color) !important;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+}
+
+.step-card .ant-card-cover img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.step-card .ant-card-body {
+  background: var(--card-surface);
+}
+
+.step-card .ant-card-meta-title {
+  color: var(--text-color) !important;
+}
+
+.step-card .ant-card-meta-description {
+  color: var(--muted-text-color) !important;
+}
+
+.seo-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Increase the size of the collapsed menu icon */
@@ -263,11 +344,31 @@
   height: 16px;
   z-index: 1;
 }
+:root[data-theme="dark"] .touch-icon {
+  filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.75));
+}
+
+.service-card-grid {
+  background: var(--card-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.service-card-grid:hover {
+  transform: translateY(-3px);
+  border-color: #015bbb !important;
+  box-shadow: 0 10px 24px rgba(1, 91, 187, 0.2);
+}
+
+:root[data-theme="dark"] .service-card-grid:hover {
+  border-color: #63a7ff !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+}
 
 .content-container {
   margin-top: 60px;
   margin-bottom: 60px;
-  background: #ffffff;
+  background: var(--app-bg);
 }
 
 /* Apply to elements that have an ID (your anchor targets) */
@@ -276,7 +377,7 @@
 }
 
 .footer-container {
-  background: #ffffff;
+  background: var(--surface-bg);
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
 }
 

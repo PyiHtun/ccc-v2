@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Space, Button, Col, Row, Tag, message } from "antd";
+import { Layout, Menu, Space, Button, Col, Row, Tag, Switch, message } from "antd";
 import {
   PhoneTwoTone,
   MailTwoTone,
@@ -7,6 +7,8 @@ import {
   FacebookOutlined,
   LinkedinOutlined,
   InstagramOutlined,
+  MoonOutlined,
+  SunOutlined,
 } from "@ant-design/icons";
 import TapSwipeDrawer from "./TapSwipeDrawer";
 import logo from "../img/ccc_main_2.png";
@@ -14,7 +16,7 @@ import "../App.css";
 
 const { Header } = Layout;
 
-const HeaderMobile = ({ menuItems }) => {
+const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
@@ -71,7 +73,7 @@ const HeaderMobile = ({ menuItems }) => {
       {/* Logo + menu */}
       <Header
         className="mobile-header"
-        style={{ top: 40, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px" }}
+        style={{ top: 40, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px", background: "var(--surface-bg)" }}
       >
         <img
           src={logo}
@@ -84,6 +86,13 @@ const HeaderMobile = ({ menuItems }) => {
             marginRight: "10px",
             marginTop: "2px",
           }}
+        />
+        <Switch
+          checked={darkMode}
+          onChange={onToggleTheme}
+          checkedChildren={<MoonOutlined />}
+          unCheckedChildren={<SunOutlined />}
+          aria-label="Toggle dark mode"
         />
         <Button
           type="text"

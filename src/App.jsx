@@ -19,11 +19,6 @@ import card1 from "./img/card-connect2-pexels.jpg";
 import card2 from "./img/card-consultation-pexels.jpg";
 import card3 from "./img/card-review-pexels.jpg";
 import card4 from "./img/card-ccc.jpg";
-// import carousel11 from "./img/temp/Gemini_Gen_1.png";
-// import carousel22 from "./img/temp/carousel-pexels.jpg";
-// import carousel33 from "./img/temp/phone.jpg";
-// import carousel44 from "./img/temp/bp.jpg";
-// import carousel55 from "./img/temp/nathan-anderson.jpg";
 
 import serviceHomeCare from "./img/services-home-care.png";
 import serviceRespite from "./img/services-respite.png";
@@ -44,17 +39,7 @@ import cccAvatar from "./img/ccc_logo.png"
 
 
 // Ant Design components and icons
-import {
-  message,
-  Alert,
-  Layout,
-  Col,
-  Row,
-  Input,
-  Divider,
-  Typography,
-  Card,
-} from "antd";
+import { message, Alert, Layout, Col, Row, Input, Collapse, Divider, Typography, Card, ConfigProvider, theme as antdTheme } from "antd";
 import {
   PhoneTwoTone,
   PhoneFilled,
@@ -70,9 +55,9 @@ import {
   InstagramOutlined,
 } from "@ant-design/icons";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 const { Search } = Input;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph } = Typography;
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnkvlp"; // ← replace
 
 // Global menu items used for navigation headers
@@ -80,54 +65,10 @@ const menuItems = [
   { key: "home", label: <a href="#home">Home</a> },
   { key: "services", label: <a href="#services">Our Services</a> },
   { key: "about", label: <a href="#about">About Us</a> },
+  { key: "faq", label: <a href="#faq">FAQ</a> },
   { key: "contact", label: <a href="#contact">Contact Us</a> },
 ];
 
-// Custom FloatButton group for quick contact actions
-// const FloatButtonWrapper = () => (
-//   <FloatButton.Group
-//     shape="circle"
-//     size="large"
-//     style={{
-//       position: "fixed",
-//       bottom: 20,
-//       right: 20,
-//       zIndex: 9999,
-//     }}
-//   >
-//     <FloatButton
-//       icon={<PhoneTwoTone style={{ fontSize: 20 }}/>}
-//       onClick={() => (window.location.href = "tel:02039243451")}
-//       style={{
-//         backgroundColor: "#015BBB",
-//         color: "#015BBB",
-//         width: 60,
-//         height: 60,
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//       }}
-//     />
-//     <FloatButton
-//       icon={<MailTwoTone />}
-//       style={{
-//         backgroundColor: "#015BBB",
-//         color: "#015BBB",
-//         width: 60,
-//         height: 60,
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//       }}
-//       onClick={() => {
-//         const contactSection = document.getElementById("contact");
-//         if (contactSection) {
-//           contactSection.scrollIntoView({ behavior: "smooth" });
-//         }
-//       }}
-//     />
-//   </FloatButton.Group>
-// );
 
 // Style for service grid cards
 const gridStyle = {
@@ -143,6 +84,7 @@ const gridStyle = {
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [successful, setSuccessful] = useState(false);
@@ -150,7 +92,153 @@ function App() {
   const { width } = useWindowSize();
   const [sending, setSending] = useState(false);
 
-  
+  const serviceCards = [
+    {
+      title: "Homecare",
+      displayTitle: "Homecare (Domiciliary Care)",
+      logo: serviceHomeCare,
+      tags: ["Daily Care"],
+      description: `Our Homecare service provides personal, reliable support with everyday living from washing, dressing, and meal preparation to companionship and mobility assistance. 
+      
+You'll receive help right where you're most comfortable: at home. We focus on dignity, independence, and compassionate care delivered by trained, DBS-checked carers who truly care about your wellbeing. 
+      
+Call us today to discuss how our homecare can fit around your lifestyle.`,
+    },
+    {
+      title: "Respite Care",
+      displayTitle: "Respite Care",
+      logo: serviceRespite,
+      tags: ["Daily Care"],
+      description: `Respite Care gives family members and regular carers a well-deserved break while ensuring their loved ones continue to receive quality support. 
+      
+Whether it's for a few hours, a weekend, or longer, our professional carers provide temporary cover with the same kindness and consistency as permanent staff. It's a safe, stress-free way to rest and recharge. 
+      
+Speak with us to arrange short-term or emergency respite care when you need it.`,
+    },
+    {
+      title: "Home from Hospital Care",
+      displayTitle: "Home from Hospital Care",
+      logo: serviceHomeHosp,
+      tags: ["Clinical Support"],
+      description: `Recovering after a hospital stay can be daunting. Our Home-from-Hospital Care helps you transition smoothly back home with daily assistance, medication support, mobility help, and monitoring of recovery routines. 
+      
+We work closely with hospital discharge teams and families to reduce readmission risks and speed up rehabilitation. 
+      
+Contact us before discharge to plan your safe return home.`,
+    },
+    {
+      title: "Specialist Care",
+      displayTitle: "Specialist Care",
+      logo: serviceSpecialist,
+      tags: ["Clinical Support"],
+      description: `For individuals living with complex or long-term conditions such as dementia, Parkinson's, MS, stroke recovery, or palliative needs, our Specialist Care offers expert, person-centred support. 
+      
+Each carer is specially trained and follows a detailed care plan developed with families and health professionals. Our goal is to preserve comfort, dignity, and quality of life every day. 
+      
+Call us to learn how our experienced carers can support specialist care needs.`,
+    },
+    {
+      title: "Companionship",
+      displayTitle: "Companionship",
+      logo: serviceCompanion,
+      tags: ["Lifestyle Support"],
+      description: `Loneliness can affect anyone. Our Companionship service provides friendly, engaging carers who visit to chat, share hobbies, accompany you to appointments, or simply offer a reassuring presence. 
+      
+This service improves mental wellbeing, confidence, and quality of life especially for those living alone. 
+      
+Reach out today to arrange regular companionship visits.`,
+    },
+    {
+      title: "Night Care",
+      displayTitle: "Night Care",
+      logo: serviceNightCare,
+      tags: ["Daily Care"],
+      description: `When peace of mind at night matters, our Night Care service ensures safety and comfort around the clock. We offer waking or sleeping night options for assistance with toileting, medication, repositioning, or reassurance during the night. 
+      
+Families can rest easy knowing a professional carer is on hand if anything is needed. 
+      
+Call us to arrange flexible overnight support that suits your routine.`,
+    },
+    {
+      title: "Live-in Care",
+      displayTitle: "Live-in Care (24-hour)",
+      logo: serviceLiveIn,
+      tags: ["Daily Care"],
+      description: `Live-in Care provides full-time, round-the-clock support in the familiarity of your own home. A dedicated carer lives with you, offering personal care, companionship, meal prep, medication reminders, and household help tailored to your unique preferences and schedule. 
+      
+It's a comforting alternative to residential care, maintaining independence with complete peace of mind. 
+      
+Talk to us about matching you with a caring live-in professional.`,
+    },
+    {
+      title: "Medication Administration",
+      displayTitle: "Medication Administration",
+      logo: serviceMedication,
+      tags: ["Clinical Support"],
+      description: `Taking medication correctly is vital but can be confusing especially with multiple prescriptions. Our trained carers manage medication times, doses, and records with precision and care, liaising with pharmacists or GPs if needed. 
+      
+We ensure you never miss or duplicate doses, keeping you safe and confident in your treatment. 
+      
+Call us to learn how we can support safe daily medication routines.`,
+    },
+    {
+      title: "Personal Assistance/Outings",
+      displayTitle: "Personal Assistance/Outings",
+      logo: servicePersonalAssistant,
+      tags: ["Lifestyle Support"],
+      description: `Need an extra hand getting out and about? Our Personal Assistance and Outings service helps with errands, appointments, shopping, leisure activities, and social visits. 
+      
+Whether you want to stay active or simply have company while you're out, we'll make sure you travel safely and enjoyably. 
+      
+Book your personal assistant today and make every outing stress-free.`,
+    },
+    {
+      title: "Autism and LD",
+      displayTitle: "Autism and LD",
+      logo: serviceLD,
+      tags: ["Clinical Support"],
+      description: `Our Autism and Learning-Disability Care provides structured, patient, and individualised support for people of all ages. 
+      
+We focus on communication, routine, independence, and sensory understanding delivered by carers trained to support neurodiverse individuals with empathy and respect. Families appreciate our flexible, consistent approach that builds trust and confidence. 
+      
+Contact us to arrange a personalised care plan for autism or learning-disability support.`,
+    },
+  ];
+  const faqItems = [
+    {
+      key: "faq-1",
+      label: "How quickly can care start?",
+      children:
+        "In many cases we can start within 24 to 72 hours after consultation and assessment.",
+    },
+    {
+      key: "faq-2",
+      label: "Can care plans be adjusted later?",
+      children:
+        "Yes. We review care plans regularly and can adapt schedules, visit length, and support levels as needs change.",
+    },
+    {
+      key: "faq-3",
+      label: "Do you provide short-term and long-term care?",
+      children:
+        "Yes. We provide one-off or short-term support, respite care, and ongoing long-term care depending on your goals.",
+    },
+  ];
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("ccc-theme");
+    if (savedTheme === "dark" || savedTheme === "light") {
+      setDarkMode(savedTheme === "dark");
+      return;
+    }
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDarkMode(prefersDark);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
+    localStorage.setItem("ccc-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
   useEffect(() => {
     const host = document.getElementById("cqc-widget");
     if (!host) return;
@@ -308,13 +396,19 @@ function enableAnalytics() {
 }
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "#ffffff" }}>
+    <ConfigProvider
+      theme={{
+        algorithm: darkMode ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        token: { colorPrimary: "#015BBB" },
+      }}
+    >
+      <Layout style={{ minHeight: "100vh", background: "var(--app-bg)", color: "var(--text-color)" }}>
       {/* Navigation Header */}
       <div id="home">
         {width < 768 ? (
-          <HeaderMobile menuItems={menuItems} />
+          <HeaderMobile menuItems={menuItems} darkMode={darkMode} onToggleTheme={setDarkMode} />
         ) : (
-          <HeaderDesktop menuItems={menuItems} />
+          <HeaderDesktop menuItems={menuItems} darkMode={darkMode} onToggleTheme={setDarkMode} />
         )}
       </div>
 
@@ -370,6 +464,7 @@ function enableAnalytics() {
 
         {/* Steps Section */}
         <div className="body-wrapper">
+          <h2 className="seo-heading">How Our Home Care Process Works</h2>
           <div className="card-container">
             <Row gutter={32} className="card-row">
               <Col span={6}>
@@ -480,6 +575,7 @@ function enableAnalytics() {
         {/* Services Section */}
         <div id="services">
           <div className="body-wrapper">
+            <h2 className="seo-heading">Home Care Services</h2>
             <Divider orientation="left" className="divider">
               Our Services
             </Divider>
@@ -488,199 +584,23 @@ function enableAnalytics() {
               description="Choosing the right care service is crucial. Explore our range of care services below, simply tap any card to view detailed information about how we can support you or your loved ones with compassionate personal care, specialist dementia support, or assistance with disabilities."
             />
             <Card>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Homecare care",
-                    logo: serviceHomeCare,
-                    description:
-                      `Our Homecare service provides personal, reliable support with everyday living from washing, dressing, and meal preparation to companionship and mobility assistance. 
-                      
-                      You'll receive help right where you're most comfortable: at home. We focus on dignity, independence, and compassionate care delivered by trained, DBS-checked carers who truly care about your wellbeing. 
-                      
-                      Call us today to discuss how our homecare can fit around your lifestyle.`,
-                  })
-                }
-              >
-                <ServiceItem
-                  icon={serviceHomeCare}
-                  title="Homecare care (Domiciliary care)"
-                />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Respite care",
-                    logo: serviceRespite,
-                    description:
-                      `Respite Care gives family members and regular carers a well-deserved break while ensuring their loved ones continue to receive quality support. 
-                      
-                      Whether it's for a few hours, a weekend, or longer, our professional carers provide temporary cover with the same kindness and consistency as permanent staff. It's a safe, stress-free way to rest and recharge. 
-                      
-                      Speak with us to arrange short-term or emergency respite care when you need it.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceRespite} title="Respite Care" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Home from Hospital care",
-                    logo: serviceHomeHosp,
-                    description:
-                      `Recovering after a hospital stay can be daunting. Our Home-from-Hospital Care helps you transition smoothly back home with daily assistance, medication support, mobility help, and monitoring of recovery routines. 
-                      
-                      We work closely with hospital discharge teams and families to reduce readmission risks and speed up rehabilitation. 
-                      
-                      Contact us before discharge to plan your safe return home.`,
-                  })
-                }
-              >
-                <ServiceItem
-                  icon={serviceHomeHosp}
-                  title="Home from Hospital Care"
-                />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Specialist care",
-                    logo: serviceSpecialist,
-                    description:
-                      `For individuals living with complex or long-term conditions such as dementia, Parkinson's, MS, stroke recovery, or palliative needs, our Specialist Care offers expert, person-centred support. 
-                      
-                      Each carer is specially trained and follows a detailed care plan developed with families and health professionals. Our goal is to preserve comfort, dignity, and quality of life every day. 
-                      
-                      Call us to learn how our experienced carers can support specialist care needs.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceSpecialist} title="Specialist Care" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Companionship",
-                    logo: serviceCompanion,
-                    description:
-                      `Loneliness can affect anyone. Our Companionship service provides friendly, engaging carers who visit to chat, share hobbies, accompany you to appointments, or simply offer a reassuring presence. 
-                      
-                      This service improves mental wellbeing, confidence, and quality of life especially for those living alone. 
-                      
-                      Reach out today to arrange regular companionship visits.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceCompanion} title="Companionship" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Night Care",
-                    logo: serviceNightCare,
-                    description:
-                      `When peace of mind at night matters, our Night Care service ensures safety and comfort around the clock. We offer waking or sleeping night options for assistance with toileting, medication, repositioning, or reassurance during the night. 
-                      
-                      Families can rest easy knowing a professional carer is on hand if anything is needed. 
-                      
-                      Call us to arrange flexible overnight support that suits your routine.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceNightCare} title="Night Care" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Live-in Care",
-                    logo: serviceLiveIn, // <-- add/import an icon for Live-in Care
-                    description:
-                      `Live-in Care provides full-time, round-the-clock support in the familiarity of your own home. A dedicated carer lives with you, offering personal care, companionship, meal prep, medication reminders, and household help tailored to your unique preferences and schedule. 
-                      
-                      It's a comforting alternative to residential care, maintaining independence with complete peace of mind. 
-                      
-                      Talk to us about matching you with a caring live-in professional.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceLiveIn} title="Live-in Care (24-hour)" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Medication Administration",
-                    logo: serviceMedication,
-                    description:
-                      `Taking medication correctly is vital but can be confusing especially with multiple prescriptions. Our trained carers manage medication times, doses, and records with precision and care, liaising with pharmacists or GPs if needed. 
-                      
-                      We ensure you never miss or duplicate doses, keeping you safe and confident in your treatment. 
-                      
-                      Call us to learn how we can support safe daily medication routines.`,
-                  })
-                }
-              >
-                <ServiceItem
-                  icon={serviceMedication}
-                  title="Medication Administration"
-                />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Personal Assistance/Outings",
-                    logo: servicePersonalAssistant,
-                    description:
-                      `Need an extra hand getting out and about? Our Personal Assistance and Outings service helps with errands, appointments, shopping, leisure activities, and social visits. 
-                      
-                      Whether you want to stay active or simply have company while you're out, we'll make sure you travel safely and enjoyably. 
-                      
-                      Book your personal assistant today and make every outing stress-free.`,
-
-                  })
-                }
-              >
-                <ServiceItem
-                  icon={servicePersonalAssistant}
-                  title="Personal Assistance/Outings"
-                />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
-              <Card.Grid
-                style={gridStyle}
-                onClick={() =>
-                  showDrawer({
-                    title: "Autism and LD",
-                    logo: serviceLD,
-                    description:
-                      `Our Autism and Learning-Disability Care provides structured, patient, and individualised support for people of all ages. 
-                      
-                      We focus on communication, routine, independence, and sensory understanding delivered by carers trained to support neurodiverse individuals with empathy and respect. Families appreciate our flexible, consistent approach that builds trust and confidence. 
-                      
-                      Contact us to arrange a personalised care plan for autism or learning-disability support.`,
-                  })
-                }
-              >
-                <ServiceItem icon={serviceLD} title="Autism and LD" />
-                <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
-              </Card.Grid>
+              {serviceCards.map((service) => (
+                <Card.Grid
+                  key={service.title}
+                  style={gridStyle}
+                  className="service-card-grid"
+                  onClick={() =>
+                    showDrawer({
+                      title: service.title,
+                      logo: service.logo,
+                      description: service.description,
+                    })
+                  }
+                >
+                  <ServiceItem icon={service.logo} title={service.displayTitle} />
+                  <img src={touchIcon} alt="Touch Icon" className="touch-icon" />
+                </Card.Grid>
+              ))}
             </Card>
           </div>
         </div>
@@ -688,14 +608,25 @@ function enableAnalytics() {
         {/* About Us Section */}
         <div id="about">
           <div className="body-wrapper">
+            <h2 className="seo-heading">About Cozy Corner Care</h2>
             <Divider orientation="left">About Us</Divider>
             <CustomListItems data={aboutUsData} />
+          </div>
+        </div>
+        <div id="faq">
+          <div className="body-wrapper">
+            <h2 className="seo-heading">Frequently Asked Questions</h2>
+            <Divider orientation="left">Frequently Asked Questions</Divider>
+            <Card>
+              <Collapse accordion items={faqItems} />
+            </Card>
           </div>
         </div>
 
         {/* Contact Section */}
         <div id="contact">
           <div className="body-wrapper">
+            <h2 className="seo-heading">Contact Cozy Corner Care</h2>
             <Divider orientation="left" className="divider">
               Contact Us
             </Divider>
@@ -842,6 +773,9 @@ function enableAnalytics() {
                     <a href="#about">About Us</a>
                   </li>
                   <li style={{ marginBottom: "8px" }}>
+                    <a href="#faq">FAQ</a>
+                  </li>
+                  <li style={{ marginBottom: "8px" }}>
                     <a href="#contact">Contact Us</a>
                   </li>
                 </ul>
@@ -858,7 +792,8 @@ function enableAnalytics() {
         </div>
       </Footer>
       <CookieBanner onAccept={enableAnalytics} />
-    </Layout>
+      </Layout>
+    </ConfigProvider>
   );
 }
 

@@ -1,12 +1,12 @@
 import React from "react";
-import { Layout, Menu, Space, message } from "antd";
-import { PhoneTwoTone, MailTwoTone } from "@ant-design/icons";
+import { Layout, Menu, Space, Switch, message } from "antd";
+import { PhoneTwoTone, MailTwoTone, MoonOutlined, SunOutlined } from "@ant-design/icons";
 import logo from "../img/ccc_main_2.png";
 import "../App.css";
 
 const { Header } = Layout;
 
-const HeaderDesktop = ({ menuItems }) => {
+const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
   const phoneNumber = "0203 924 3451";
   const email = "info@cozycornercare.com";
 
@@ -35,8 +35,8 @@ const HeaderDesktop = ({ menuItems }) => {
         display: "flex",
         alignItems: "center",
         padding: "0 20px",
-        background: "#ffffff",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        background: "var(--header-bar-bg)",
+        boxShadow: "var(--header-shadow)",
       }}
     >
       {/* Logo */}
@@ -55,7 +55,7 @@ const HeaderDesktop = ({ menuItems }) => {
 
       {/* Navigation menu */}
       <Menu
-        theme="light"
+        theme={darkMode ? "dark" : "light"}
         mode="horizontal"
         defaultSelectedKeys={["home"]}
         items={menuItems}
@@ -64,6 +64,7 @@ const HeaderDesktop = ({ menuItems }) => {
           minWidth: "40px",
           borderBottom: "0px",
           textAlign: "center",
+          background: "transparent",
         }}
         overflowedIndicator={
           <span style={{ fontSize: "40px", lineHeight: "1px" }}>...</span>
@@ -72,6 +73,13 @@ const HeaderDesktop = ({ menuItems }) => {
 
       {/* Contact info */}
       <Space className="contact-info" size="large">
+        <Switch
+          checked={darkMode}
+          onChange={onToggleTheme}
+          checkedChildren={<MoonOutlined />}
+          unCheckedChildren={<SunOutlined />}
+          aria-label="Toggle dark mode"
+        />
         {/* Phone */}
         <span
           onClick={handleCall}

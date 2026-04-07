@@ -22,7 +22,10 @@ const CustomListItems = ({ data, title, description, avatar }) => {
         <List.Item
           style={{
             padding: "16px 24px", // ← left/right padding
-            borderBottom: index === items.length - 1 ? "none" : "1px solid #f0f0f0",
+            borderBottom:
+              index === items.length - 1
+                ? "none"
+                : "1px solid var(--border-color)",
           }}
         >
           <div
@@ -47,7 +50,7 @@ const CustomListItems = ({ data, title, description, avatar }) => {
 
             <div style={{ flex: 1, lineHeight: 1.7 }}>
               {(item.title || title) && (
-                <h4 style={{ margin: "0 0 8px", fontWeight: 600, color: "#015BBB" }}>
+                <h4 style={{ margin: "0 0 8px", fontWeight: 600, color: "var(--section-title-color)" }}>
                   {item.title || title}
                 </h4>
               )}
@@ -58,7 +61,7 @@ const CustomListItems = ({ data, title, description, avatar }) => {
                     margin: 0,
                     whiteSpace: "pre-line", // ← shows \n / \n\n as line breaks/paragraphs
                     fontSize: 15,
-                    color: "#333",
+                    color: "var(--body-text-color)",
                   }}
                 >
                   {item.description || description}
