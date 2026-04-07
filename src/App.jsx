@@ -678,7 +678,7 @@ function enableAnalytics() {
                       display: "inline-flex",      // makes <p> shrink to its content
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#000",
+                      color: "var(--text-color)",
                       margin: "0 auto",            // centers the inline-flex block
                       paddingBottom: "10px", 
 

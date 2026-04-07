@@ -320,9 +320,15 @@ body {
 .contact-info {
   margin-left: 20px;
 }
+.contact-info span {
+  color: var(--text-color);
+}
 
 .contact-info-mobile {
   display: none;
+}
+.contact-info-mobile span {
+  color: var(--text-color);
 }
 
 .ant-divider-horizontal::before,
