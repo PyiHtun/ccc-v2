@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Space, Button, Col, Row, Tag, Switch, message } from "antd";
+import { Layout, Menu, Space, Button, Col, Row, Tag, Switch, Select, message } from "antd";
 import {
   PhoneTwoTone,
   MailTwoTone,
@@ -12,27 +12,36 @@ import {
 } from "@ant-design/icons";
 import TapSwipeDrawer from "./TapSwipeDrawer";
 import logo from "../img/ccc_main_2.png";
+import { useI18n } from "../i18n/useI18n.js";
 import "../App.css";
 
 const { Header } = Layout;
 
 const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
+  const { t, language, setLanguage } = useI18n();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
 
-  const phoneNumber = "0203 924 3451";
-  const email = "info@cozycornercare.com";
+  const phoneNumber = t("site.phoneDisplay");
+  const phoneDial = t("site.phoneDial");
+  const email = t("site.emails.info");
+  const languageOptions = [
+    { value: "en", label: t("language.englishUk") },
+    { value: "my", label: t("language.myanmar", "🇲🇲 မြန်မာ") },
+  ];
 
   const handleCall = () => {
-    window.location.href = `tel:${phoneNumber.replace(/\s/g, "")}`;
+    window.location.href = `tel:${phoneDial}`;
   };
 
   const handleCopyEmail = () => {
     navigator.clipboard
       .writeText(email)
-      .then(() => message.success(`${email} copied to clipboard!`))
-      .catch(() => message.error("Failed to copy email."));
+      .then(() =>
+        message.success(t("messages.copiedEmail").replace("{email}", email))
+      )
+      .catch(() => message.error(t("messages.copyEmailFailed")));
   };
 
   return (
@@ -47,7 +56,7 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             tabIndex={0}
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleCall()}
             style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
-            title="Call us"
+            title={t("common.callUs")}
             aria-label={`Call ${phoneNumber}`}
           >
             <PhoneTwoTone twoToneColor="#015BBB" />
@@ -61,8 +70,8 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             tabIndex={0}
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleCopyEmail()}
             style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
-            title="Copy email address"
-            aria-label={`Copy email ${email}`}
+            title={t("common.copyEmailAddress")}
+            aria-label={`${t("common.copyEmailAria")} ${email}`}
           >
             <MailTwoTone twoToneColor="#015BBB" />
             <span>{email}</span>
@@ -77,7 +86,7 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
       >
         <img
           src={logo}
-          alt="Cozy Corner Care logo"
+          alt={t("common.logoAlt")}
           style={{
             height: "10em",
             width: "16em",
@@ -92,19 +101,19 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
           onChange={onToggleTheme}
           checkedChildren={<MoonOutlined />}
           unCheckedChildren={<SunOutlined />}
-          aria-label="Toggle dark mode"
+          aria-label={t("common.toggleDarkMode")}
         />
         <Button
           type="text"
           icon={<MenuOutlined style={{ fontSize: "24px", color: "#015BBB" }} />}
           onClick={openDrawer}
           style={{ marginLeft: "auto", marginRight: "14px" }}
-          aria-label="Open menu"
+          aria-label={t("common.openMenu")}
         />
 
         {/* Drawer */}
         <TapSwipeDrawer
-          title="Menu"
+          title={t("drawer.menuTitle")}
           placement="right"
           onClose={closeDrawer}
           open={drawerVisible}
@@ -112,11 +121,11 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             <Row gutter={[24, 24]}>
               <Col xs={24}>
                 <div style={{ textAlign: "left" }}>
-                  <h4 style={{ marginBottom: "16px" }}>Follow Us</h4>
+                  <h4 style={{ marginBottom: "16px" }}>{t("social.followUs")}</h4>
                   <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                    <Tag icon={<FacebookOutlined />} color="#3b5999">Facebook</Tag>
-                    <Tag icon={<LinkedinOutlined />} color="#55acee">LinkedIn</Tag>
-                    <Tag icon={<InstagramOutlined />} color="#E1306C">Instagram</Tag>
+                    <Tag icon={<FacebookOutlined />} color="#3b5999">{t("social.facebook")}</Tag>
+                    <Tag icon={<LinkedinOutlined />} color="#55acee">{t("social.linkedIn")}</Tag>
+                    <Tag icon={<InstagramOutlined />} color="#E1306C">{t("social.instagram")}</Tag>
                   </div>
                 </div>
               </Col>
@@ -126,6 +135,16 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             </Row>
           }
         >
+          <div style={{ marginBottom: 12 }}>
+            <div style={{ marginBottom: 6 }}>{t("language.label")}</div>
+            <Select
+              value={language}
+              onChange={setLanguage}
+              options={languageOptions}
+              style={{ width: "100%" }}
+              dropdownMatchSelectWidth={false}
+            />
+          </div>
           <Menu
             mode="vertical"
             defaultSelectedKeys={["home"]}

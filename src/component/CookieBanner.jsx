@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "antd";
+import { useI18n } from "../i18n/useI18n.js";
 
 const LS_KEY = "cookie-consent"; // { status: "accepted" | "rejected", ts: number }
 
 export default function CookieBanner({ onAccept }) {
+  const { t } = useI18n();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -46,16 +48,15 @@ export default function CookieBanner({ onAccept }) {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", gap: 12, alignItems: "center" }}>
         <div style={{ flex: 1, lineHeight: 1.5 }}>
-          We use essential cookies to make this site work. We don’t set analytics or advertising cookies
-          unless you accept. Read our{" "}
+          {t("cookieBanner.body")}{" "}
           <a href="#privacy" style={{ color: "#69c0ff", textDecoration: "underline" }}>
-            Privacy & Cookies
+            {t("cookieBanner.privacyLabel")}
           </a>.
         </div>
         <div style={{ display: "flex", gap: 8 }}>
-          <Button onClick={rejectAll}>Reject</Button>
+          <Button onClick={rejectAll}>{t("cookieBanner.reject")}</Button>
           <Button type="primary" onClick={acceptAll} style={{ background: "#015BBB" }}>
-            Accept all
+            {t("cookieBanner.acceptAll")}
           </Button>
         </div>
       </div>

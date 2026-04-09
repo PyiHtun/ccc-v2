@@ -1,26 +1,35 @@
 import React from "react";
-import { Layout, Menu, Space, Switch, message } from "antd";
+import { Layout, Menu, Select, Space, Switch, message } from "antd";
 import { PhoneTwoTone, MailTwoTone, MoonOutlined, SunOutlined } from "@ant-design/icons";
 import logo from "../img/ccc_main_2.png";
+import { useI18n } from "../i18n/useI18n.js";
 import "../App.css";
 
 const { Header } = Layout;
 
 const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
-  const phoneNumber = "0203 924 3451";
-  const email = "info@cozycornercare.com";
+  const { t, language, setLanguage } = useI18n();
+  const phoneNumber = t("site.phoneDisplay");
+  const phoneDial = t("site.phoneDial");
+  const email = t("site.emails.info");
+  const languageOptions = [
+    { value: "en", label: t("language.englishUk") },
+    { value: "my", label: t("language.myanmar", "🇲🇲 မြန်မာ") },
+  ];
 
   // Click-to-call
   const handleCall = () => {
-    window.location.href = `tel:${phoneNumber.replace(/\s/g, "")}`;
+    window.location.href = `tel:${phoneDial}`;
   };
 
   // Copy email
   const handleCopyEmail = () => {
     navigator.clipboard
       .writeText(email)
-      .then(() => message.success(`${email} copied to clipboard!`))
-      .catch(() => message.error("Failed to copy email."));
+      .then(() =>
+        message.success(t("messages.copiedEmail").replace("{email}", email))
+      )
+      .catch(() => message.error(t("messages.copyEmailFailed")));
   };
 
   return (
@@ -42,7 +51,7 @@ const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
       {/* Logo */}
       <img
         src={logo}
-        alt="Cozy Corner Care logo"
+        alt={t("common.logoAlt")}
         style={{
           height: "20em",
           width: "18em",
@@ -73,12 +82,21 @@ const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
 
       {/* Contact info */}
       <Space className="contact-info" size="large">
+        <Select
+          size="small"
+          value={language}
+          onChange={setLanguage}
+          options={languageOptions}
+          aria-label={t("language.label")}
+          style={{ minWidth: 120 }}
+          dropdownMatchSelectWidth={false}
+        />
         <Switch
           checked={darkMode}
           onChange={onToggleTheme}
           checkedChildren={<MoonOutlined />}
           unCheckedChildren={<SunOutlined />}
-          aria-label="Toggle dark mode"
+          aria-label={t("common.toggleDarkMode")}
         />
         {/* Phone */}
         <span
@@ -89,7 +107,7 @@ const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
             alignItems: "center",
             gap: 6,
           }}
-          title="Call us"
+          title={t("common.callUs")}
         >
           <PhoneTwoTone twoToneColor="#015BBB" />
           <span>{phoneNumber}</span>
@@ -104,7 +122,7 @@ const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
             alignItems: "center",
             gap: 6,
           }}
-          title="Copy email address"
+          title={t("common.copyEmailAddress")}
         >
           <MailTwoTone twoToneColor="#015BBB" />
           <span>{email}</span>
