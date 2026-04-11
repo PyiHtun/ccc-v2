@@ -50,10 +50,21 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
     <>
       {/* Top contact strip */}
       <Header className="mobile-header contact-info-mobile" style={{ top: 0, zIndex: 1000 }}>
-        <div className="mobile-contact-row">
-          {/* Phone (tap to call) */}
+        <div className="mobile-contact-grid">
+          <div className="mobile-lang-wrap">
+            <Select
+              size="small"
+              className="mobile-lang-select"
+              value={language}
+              onChange={setLanguage}
+              options={languageOptions}
+              aria-label={t("language.label")}
+              dropdownMatchSelectWidth={false}
+            />
+          </div>
+
           <span
-            className="mobile-contact-item"
+            className="mobile-contact-item mobile-contact-phone"
             onClick={handleCall}
             role="button"
             tabIndex={0}
@@ -66,7 +77,6 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             <span>{phoneNumber}</span>
           </span>
 
-          {/* Email (tap to copy) */}
           <span
             className="mobile-contact-item mobile-contact-email"
             onClick={handleCopyEmail}
@@ -80,23 +90,13 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             <MailTwoTone twoToneColor="#015BBB" />
             <span>{email}</span>
           </span>
-
-          <Select
-            size="small"
-            className="mobile-lang-select"
-            value={language}
-            onChange={setLanguage}
-            options={languageOptions}
-            aria-label={t("language.label")}
-            dropdownMatchSelectWidth={false}
-          />
         </div>
       </Header>
 
       {/* Logo + menu */}
       <Header
         className="mobile-header"
-        style={{ top: 48, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px", background: "var(--surface-bg)" }}
+        style={{ top: 68, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px", background: "var(--surface-bg)" }}
       >
         <img
           src={logo}
