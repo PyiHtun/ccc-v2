@@ -15,7 +15,9 @@ const HeaderDesktop = ({ menuItems, darkMode, onToggleTheme }) => {
   const languageOptions = [
     { value: "en", label: t("language.englishUk") },
     { value: "my", label: t("language.myanmar", "🇲🇲 မြန်မာ") },
-  ];
+    { value: "el", label: t("language.greek", "🇬🇷 Ελληνικά") },
+    { value: "tr", label: t("language.turkish", "🇹🇷 Türkçe") },
+  ].sort((a, b) => a.label.localeCompare(b.label));
 
   // Click-to-call
   const handleCall = () => {

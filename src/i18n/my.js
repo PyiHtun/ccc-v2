@@ -229,6 +229,8 @@ const my = {
     label: "ဘာသာစကား",
     englishUk: "🇬🇧 English",
     myanmar: "🇲🇲 မြန်မာ",
+    greek: "🇬🇷 Greek",
+    turkish: "🇹🇷 Turkish",
   },
   messages: {
     invalidContact: "မှားယွင်းသော အချက်အလက်။",

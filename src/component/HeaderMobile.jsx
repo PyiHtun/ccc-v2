@@ -29,7 +29,9 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
   const languageOptions = [
     { value: "en", label: t("language.englishUk") },
     { value: "my", label: t("language.myanmar", "🇲🇲 မြန်မာ") },
-  ];
+    { value: "el", label: t("language.greek", "🇬🇷 Ελληνικά") },
+    { value: "tr", label: t("language.turkish", "🇹🇷 Türkçe") },
+  ].sort((a, b) => a.label.localeCompare(b.label));
 
   const handleCall = () => {
     window.location.href = `tel:${phoneDial}`;
@@ -48,9 +50,10 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
     <>
       {/* Top contact strip */}
       <Header className="mobile-header contact-info-mobile" style={{ top: 0, zIndex: 1000 }}>
-        <Space size="large">
+        <div className="mobile-contact-row">
           {/* Phone (tap to call) */}
           <span
+            className="mobile-contact-item"
             onClick={handleCall}
             role="button"
             tabIndex={0}
@@ -65,6 +68,7 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
 
           {/* Email (tap to copy) */}
           <span
+            className="mobile-contact-item mobile-contact-email"
             onClick={handleCopyEmail}
             role="button"
             tabIndex={0}
@@ -76,13 +80,23 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             <MailTwoTone twoToneColor="#015BBB" />
             <span>{email}</span>
           </span>
-        </Space>
+
+          <Select
+            size="small"
+            className="mobile-lang-select"
+            value={language}
+            onChange={setLanguage}
+            options={languageOptions}
+            aria-label={t("language.label")}
+            dropdownMatchSelectWidth={false}
+          />
+        </div>
       </Header>
 
       {/* Logo + menu */}
       <Header
         className="mobile-header"
-        style={{ top: 40, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px", background: "var(--surface-bg)" }}
+        style={{ top: 48, zIndex: 999, display: "flex", alignItems: "center", padding: "0 10px", background: "var(--surface-bg)" }}
       >
         <img
           src={logo}
@@ -135,16 +149,6 @@ const HeaderMobile = ({ menuItems, darkMode, onToggleTheme }) => {
             </Row>
           }
         >
-          <div style={{ marginBottom: 12 }}>
-            <div style={{ marginBottom: 6 }}>{t("language.label")}</div>
-            <Select
-              value={language}
-              onChange={setLanguage}
-              options={languageOptions}
-              style={{ width: "100%" }}
-              dropdownMatchSelectWidth={false}
-            />
-          </div>
           <Menu
             mode="vertical"
             defaultSelectedKeys={["home"]}

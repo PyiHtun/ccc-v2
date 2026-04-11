@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import en from "./en";
 import my from "./my";
+import el from "./el";
+import tr from "./tr";
 import { I18nContext } from "./context";
 
 const LS_LANG_KEY = "ccc-lang";
-const dictionaries = { en, my };
+const dictionaries = { en, my, el, tr };
 
 function getByPath(source, path) {
   if (!path) return source;

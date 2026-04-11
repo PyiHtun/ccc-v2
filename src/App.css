@@ -51,15 +51,49 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 2px;
+    padding: 0 8px;
     background: var(--surface-bg);
-    height: 40px;
+    height: 48px;
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
   }
+  .mobile-contact-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    flex-wrap: nowrap;
+    font-size: 13px;
+  }
+  .mobile-contact-item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .mobile-contact-item + .mobile-contact-email {
+    margin-left: 6px;
+  }
+  .mobile-contact-email {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mobile-lang-select {
+    width: 104px;
+    min-width: 104px;
+    flex-shrink: 0;
+    margin-left: 2px;
+  }
+  .mobile-lang-select .ant-select-selector {
+    border-color: var(--border-color) !important;
+  }
 
   .content-container {
-    margin-top: 100px !important;
+    margin-top: 122px !important;
   }
 
   /* Remove horizontal scroll on mobile */

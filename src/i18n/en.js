@@ -229,6 +229,8 @@ const en = {
     label: "Language",
     englishUk: "🇬🇧 English",
     myanmar: "🇲🇲 Burmese",
+    greek: "🇬🇷 Greek",
+    turkish: "🇹🇷 Turkish",
   },
   messages: {
     invalidContact: "Invalid input! Please enter a valid email or phone number.",
