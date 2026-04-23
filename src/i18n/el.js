@@ -13,6 +13,7 @@ const el = {
     services: "Οι Υπηρεσίες μας",
     about: "Σχετικά με εμάς",
     faq: "Συχνές Ερωτήσεις",
+    policy: "Our Policy",
     contact: "Επικοινωνία",
   },
   hero: {
@@ -192,7 +193,7 @@ const el = {
     contactCardTitle: "Στοιχεία Επικοινωνίας",
     addressLines: [
       "Cozy Corner Care Ltd.,",
-      "Suit 49,",
+      "Suite 49,",
       "The Wenta Business Centre,",
       "Innova Business Park,",
       "Electric Ave, Enfield",
@@ -200,6 +201,14 @@ const el = {
     ],
     callTitle: "Καλέστε μας",
     callAriaLabel: "Καλέστε την Cozy Corner Care",
+  },
+  policy: {
+    sectionHeading: "Our Policy",
+    dividerTitle: "Privacy & Cookies",
+    body1:
+      "We use essential cookies to keep this website secure and working properly. We do not enable analytics or advertising cookies unless you choose to accept them.",
+    body2:
+      "You can update your cookie preferences at any time. For privacy requests, please contact us using the details in the Contact Us section.",
   },
   footer: {
     tagline:

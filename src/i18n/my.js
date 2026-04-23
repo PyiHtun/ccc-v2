@@ -13,6 +13,7 @@ const my = {
     services: "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုများ",
     about: "ကျွန်ုပ်တို့အကြောင်း",
     faq: "မေးလေ့ရှိသော မေးခွန်းများ",
+    policy: "Our Policy",
     contact: "ဆက်သွယ်ရန်",
   },
   hero: {
@@ -192,7 +193,7 @@ const my = {
     contactCardTitle: "ဆက်သွယ်ရန်",
     addressLines: [
       "Cozy Corner Care Ltd.,",
-      "Suit 49,",
+      "Suite 49,",
       "The Wenta Business Centre,",
       "Innova Business Park,",
       "Electric Ave, Enfield",
@@ -200,6 +201,14 @@ const my = {
     ],
     callTitle: "ဖုန်းခေါ်ရန်",
     callAriaLabel: "Call Cozy Corner Care",
+  },
+  policy: {
+    sectionHeading: "Our Policy",
+    dividerTitle: "Privacy & Cookies",
+    body1:
+      "We use essential cookies to keep this website secure and working properly. We do not enable analytics or advertising cookies unless you choose to accept them.",
+    body2:
+      "You can update your cookie preferences at any time. For privacy requests, please contact us using the details in the Contact Us section.",
   },
   footer: {
     tagline:

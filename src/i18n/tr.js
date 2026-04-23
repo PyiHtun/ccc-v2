@@ -13,6 +13,7 @@ const tr = {
     services: "Hizmetlerimiz",
     about: "Hakkımızda",
     faq: "Sıkça Sorulan Sorular",
+    policy: "Our Policy",
     contact: "İletişim",
   },
   hero: {
@@ -200,6 +201,14 @@ const tr = {
     ],
     callTitle: "Bizi Arayın",
     callAriaLabel: "Cozy Corner Care’i arayın",
+  },
+  policy: {
+    sectionHeading: "Our Policy",
+    dividerTitle: "Privacy & Cookies",
+    body1:
+      "We use essential cookies to keep this website secure and working properly. We do not enable analytics or advertising cookies unless you choose to accept them.",
+    body2:
+      "You can update your cookie preferences at any time. For privacy requests, please contact us using the details in the Contact Us section.",
   },
   footer: {
     tagline:

@@ -13,6 +13,7 @@ const en = {
     services: "Our Services",
     about: "About Us",
     faq: "FAQ",
+    policy: "Our Policy",
     contact: "Contact Us",
   },
   hero: {
@@ -192,7 +193,7 @@ const en = {
     contactCardTitle: "Contacts",
     addressLines: [
       "Cozy Corner Care Ltd.,",
-      "Suit 49,",
+      "Suite 49,",
       "The Wenta Business Centre,",
       "Innova Business Park,",
       "Electric Ave, Enfield",
@@ -200,6 +201,10 @@ const en = {
     ],
     callTitle: "Call us",
     callAriaLabel: "Call Cozy Corner Care",
+  },
+  policy: {
+    sectionHeading: "Our Policy",
+    dividerTitle: "Our Policy",
   },
   footer: {
     tagline:

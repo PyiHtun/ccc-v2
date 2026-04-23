@@ -9,6 +9,7 @@ import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
 import CookieBanner from "./component/CookieBanner.jsx";
+import OurPolicy from "./component/OurPolicy.jsx";
 import useWindowSize from "./hook/useWindowSize";
 import { useI18n } from "./i18n/useI18n.js";
 
@@ -90,6 +91,7 @@ function App() {
     { key: "services", label: <a href="#services">{t("nav.services")}</a> },
     { key: "about", label: <a href="#about">{t("nav.about")}</a> },
     { key: "faq", label: <a href="#faq">{t("nav.faq")}</a> },
+    { key: "policy", label: <a href="#privacy">{t("nav.policy")}</a> },
     { key: "contact", label: <a href="#contact">{t("nav.contact")}</a> },
   ];
 
@@ -542,6 +544,10 @@ function enableAnalytics() {
             </div>
           </div>
         </div>
+
+        <div id="privacy">
+          <OurPolicy />
+        </div>
       </Content>
 
       {/* Footer */}
@@ -585,6 +591,9 @@ function enableAnalytics() {
                   </li>
                   <li style={{ marginBottom: "8px" }}>
                     <a href="#faq">{t("nav.faq")}</a>
+                  </li>
+                  <li style={{ marginBottom: "8px" }}>
+                    <a href="#privacy">{t("nav.policy")}</a>
                   </li>
                   <li style={{ marginBottom: "8px" }}>
                     <a href="#contact">{t("nav.contact")}</a>
