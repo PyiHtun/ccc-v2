@@ -18,6 +18,7 @@ const OurPolicy = () => {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const policyItems = policyManifest.map((item, index) => ({ ...item, order: index + 1 }));
   const pageSize = MAX_VISIBLE_ROWS;
+  const useVirtualList = policyItems.length > MAX_VISIBLE_ROWS;
   const [visibleCount, setVisibleCount] = useState(
     Math.min(pageSize, policyItems.length)
   );
@@ -67,14 +68,37 @@ const OurPolicy = () => {
           className="policy-index-list"
           itemLayout="horizontal"
         >
-          <VirtualList
-            data={visiblePolicies}
-            height={listHeight}
-            itemHeight={ROW_HEIGHT}
-            itemKey="key"
-            onScroll={onScroll}
-          >
-            {(policy) => (
+          {useVirtualList ? (
+            <VirtualList
+              data={visiblePolicies}
+              height={listHeight}
+              itemHeight={ROW_HEIGHT}
+              itemKey="key"
+              onScroll={onScroll}
+            >
+              {(policy) => (
+                <List.Item
+                  key={policy.key}
+                  className={`policy-index-item ${policy.pdfPath ? "" : "policy-index-item-disabled"}`}
+                  onClick={() => openPolicy(policy)}
+                  role={policy.pdfPath ? "button" : undefined}
+                  tabIndex={policy.pdfPath ? 0 : -1}
+                  onKeyDown={(e) => {
+                    if (policy.pdfPath && (e.key === "Enter" || e.key === " ")) {
+                      openPolicy(policy);
+                    }
+                  }}
+                >
+                  <List.Item.Meta
+                    avatar={<Avatar shape="square" size={42} src={bookIcon} />}
+                    title={`${policy.order}. ${policy.title}`}
+                    description={policy.pdfPath ? policy.desc : `${policy.desc} (Coming soon)`}
+                  />
+                </List.Item>
+              )}
+            </VirtualList>
+          ) : (
+            policyItems.map((policy) => (
               <List.Item
                 key={policy.key}
                 className={`policy-index-item ${policy.pdfPath ? "" : "policy-index-item-disabled"}`}
@@ -93,8 +117,8 @@ const OurPolicy = () => {
                   description={policy.pdfPath ? policy.desc : `${policy.desc} (Coming soon)`}
                 />
               </List.Item>
-            )}
-          </VirtualList>
+            ))
+          )}
         </List>
       )}
 
@@ -105,6 +129,7 @@ const OurPolicy = () => {
         placement="right"
         width={width <= 768 ? "100vw" : "75vw"}
         styles={{ body: { padding: 0 } }}
+        disableGestureClose
       >
         {selectedPolicy ? (
           <iframe

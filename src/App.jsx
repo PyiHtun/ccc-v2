@@ -442,6 +442,11 @@ function enableAnalytics() {
           </div>
         </div>
 
+        {/* Policy Section */}
+        <div id="privacy">
+          <OurPolicy />
+        </div>
+
         {/* Contact Section */}
         <div id="contact">
           <div className="body-wrapper">
@@ -543,10 +548,6 @@ function enableAnalytics() {
               />
             </div>
           </div>
-        </div>
-
-        <div id="privacy">
-          <OurPolicy />
         </div>
       </Content>
 
