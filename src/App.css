@@ -543,6 +543,11 @@ body {
   border-radius: 0;
   background: #fff;
   display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
+.policy-mobile-open-link {
+  display: none;
 }
 
 .policy-loading {
@@ -563,6 +568,19 @@ body {
 
   .policy-index-item {
     padding: 12px !important;
+  }
+
+  .policy-mobile-open-link {
+    display: block;
+    padding: 10px 12px 6px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--surface-bg);
+  }
+
+  .policy-mobile-open-link a {
+    color: #015bbb;
+    text-decoration: underline;
+    font-weight: 500;
   }
 
   .policy-drawer-frame {

@@ -128,19 +128,30 @@ const OurPolicy = () => {
         onClose={() => setDrawerOpen(false)}
         placement="right"
         width={width <= 768 ? "100vw" : "75vw"}
-        styles={{ body: { padding: 0 } }}
+        styles={{ body: { padding: 0, overflow: "hidden" } }}
         disableGestureClose
       >
         {selectedPolicy ? (
-          <iframe
-            className="policy-drawer-frame no-close"
-            src={`${selectedPolicy.pdfPath}${
-              isMobile
-                ? "#page=1&zoom=70&toolbar=0&navpanes=0&scrollbar=1"
-                : "#page=1&zoom=page-fit&toolbar=0&navpanes=0&scrollbar=1"
-            }`}
-            title={selectedPolicy.title}
-          />
+          <>
+            {isMobile ? (
+              <div className="policy-mobile-open-link">
+                <a href={selectedPolicy.pdfPath} target="_blank" rel="noopener noreferrer">
+                  Open full PDF
+                </a>
+              </div>
+            ) : null}
+            <iframe
+              className="policy-drawer-frame no-close"
+              src={`${selectedPolicy.pdfPath}${
+                isMobile
+                  ? "#page=1&toolbar=0&navpanes=0&scrollbar=1"
+                  : "#page=1&zoom=page-fit&toolbar=0&navpanes=0&scrollbar=1"
+              }`}
+              title={selectedPolicy.title}
+              scrolling="yes"
+              allowFullScreen
+            />
+          </>
         ) : null}
       </TapSwipeDrawer>
     </div>
