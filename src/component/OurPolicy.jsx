@@ -132,14 +132,7 @@ const OurPolicy = () => {
         disableGestureClose
       >
         {selectedPolicy ? (
-          <>
-            {isMobile ? (
-              <div className="policy-mobile-open-link">
-                <a href={selectedPolicy.pdfPath} target="_blank" rel="noopener noreferrer">
-                  Open full PDF
-                </a>
-              </div>
-            ) : null}
+          <div className="policy-drawer-content">
             <iframe
               className="policy-drawer-frame no-close"
               src={`${selectedPolicy.pdfPath}${
@@ -151,7 +144,7 @@ const OurPolicy = () => {
               scrolling="yes"
               allowFullScreen
             />
-          </>
+          </div>
         ) : null}
       </TapSwipeDrawer>
     </div>

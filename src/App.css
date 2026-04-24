@@ -546,8 +546,8 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.policy-mobile-open-link {
-  display: none;
+.policy-drawer-content {
+  height: 100%;
 }
 
 .policy-loading {
@@ -570,21 +570,14 @@ body {
     padding: 12px !important;
   }
 
-  .policy-mobile-open-link {
-    display: block;
-    padding: 10px 12px 6px;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--surface-bg);
-  }
-
-  .policy-mobile-open-link a {
-    color: #015bbb;
-    text-decoration: underline;
-    font-weight: 500;
-  }
-
   .policy-drawer-frame {
     height: calc(100vh - 56px);
     min-height: 0;
+  }
+
+  .policy-drawer-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
   }
 }
