@@ -15,6 +15,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 const MAX_VISIBLE_ROWS = 8;
 const ROW_HEIGHT = 76;
+const WATERMARK_POINTS = [
+  { left: "18%", top: "22%" },
+  { left: "50%", top: "18%" },
+  { left: "82%", top: "22%" },
+  { left: "18%", top: "50%" },
+  { left: "50%", top: "50%" },
+  { left: "82%", top: "50%" },
+  { left: "18%", top: "78%" },
+  { left: "50%", top: "82%" },
+  { left: "82%", top: "78%" },
+];
 
 const getPolicyKeyFromHash = () => {
   if (typeof window === "undefined") return null;
@@ -23,16 +34,35 @@ const getPolicyKeyFromHash = () => {
   return decodeURIComponent(hash.replace("#policy=", ""));
 };
 
+const WatermarkLayer = () => (
+  <div className="policy-page-watermark-layer" aria-hidden="true">
+    {WATERMARK_POINTS.map((point, index) => (
+      <span
+        key={`wm_${index}`}
+        className="policy-page-watermark"
+        style={{ left: point.left, top: point.top }}
+      >
+        Cozy Corner Care
+      </span>
+    ))}
+  </div>
+);
+
 const OurPolicy = () => {
   const { t } = useI18n();
   const { width } = useWindowSize();
   const isMobile = width <= 768;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
+  const [desktopNumPages, setDesktopNumPages] = useState(0);
+  const [desktopPageWidth, setDesktopPageWidth] = useState(900);
+  const [desktopScale, setDesktopScale] = useState(1);
   const [mobilePolicyKey, setMobilePolicyKey] = useState(() => getPolicyKeyFromHash());
   const [mobileNumPages, setMobileNumPages] = useState(0);
   const [mobilePageWidth, setMobilePageWidth] = useState(320);
+  const [mobileScale, setMobileScale] = useState(1);
   const mobileDocRef = useRef(null);
+  const desktopDocRef = useRef(null);
 
   const policyItems = policyManifest.map((item, index) => ({ ...item, order: index + 1 }));
   const pageSize = MAX_VISIBLE_ROWS;
@@ -76,8 +106,28 @@ const OurPolicy = () => {
   }, [isMobile, mobileSelectedPolicy]);
 
   useEffect(() => {
+    if (isMobile || !drawerOpen || !selectedPolicy || !desktopDocRef.current) return undefined;
+
+    const measure = () => {
+      if (!desktopDocRef.current) return;
+      setDesktopPageWidth(Math.max(560, Math.floor(desktopDocRef.current.clientWidth - 24)));
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(desktopDocRef.current);
+    return () => ro.disconnect();
+  }, [isMobile, drawerOpen, selectedPolicy]);
+
+  useEffect(() => {
     setMobileNumPages(0);
+    setMobileScale(1);
   }, [mobileSelectedPolicy?.key]);
+
+  useEffect(() => {
+    setDesktopNumPages(0);
+    setDesktopScale(1);
+  }, [selectedPolicy?.key]);
 
   const openPolicy = (policy) => {
     if (!policy.pdfPath) return;
@@ -96,6 +146,22 @@ const OurPolicy = () => {
       "",
       `${window.location.pathname}${window.location.search}`
     );
+  };
+
+  const decreaseZoom = () => {
+    setMobileScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));
+  };
+
+  const increaseZoom = () => {
+    setMobileScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
+  };
+
+  const decreaseDesktopZoom = () => {
+    setDesktopScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));
+  };
+
+  const increaseDesktopZoom = () => {
+    setDesktopScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
   };
 
   const loadMore = () => {
@@ -129,13 +195,22 @@ const OurPolicy = () => {
                 {`${mobileSelectedPolicy.order}. ${mobileSelectedPolicy.title}`}
               </div>
             </div>
-            <button
-              type="button"
-              className="policy-mobile-back"
-              onClick={closeMobilePolicy}
-            >
-              Back
-            </button>
+            <div className="policy-mobile-actions">
+              <button type="button" className="policy-mobile-zoom" onClick={decreaseZoom}>
+                A-
+              </button>
+              <span className="policy-mobile-zoom-value">{`${Math.round(mobileScale * 100)}%`}</span>
+              <button type="button" className="policy-mobile-zoom" onClick={increaseZoom}>
+                A+
+              </button>
+              <button
+                type="button"
+                className="policy-mobile-back"
+                onClick={closeMobilePolicy}
+              >
+                Back
+              </button>
+            </div>
           </div>
           <div className="policy-mobile-doc" ref={mobileDocRef}>
             <Document
@@ -149,14 +224,15 @@ const OurPolicy = () => {
               onLoadSuccess={({ numPages }) => setMobileNumPages(numPages)}
             >
               {Array.from(new Array(mobileNumPages), (_el, index) => (
-                <Page
-                  key={`page_${index + 1}`}
-                  pageNumber={index + 1}
-                  width={mobilePageWidth}
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  className="policy-mobile-page"
-                />
+                <div key={`mobile_wrap_${index + 1}`} className="policy-page-wrap policy-mobile-page">
+                  <Page
+                    pageNumber={index + 1}
+                    width={Math.floor(mobilePageWidth * mobileScale)}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                  />
+                  <WatermarkLayer />
+                </div>
               ))}
             </Document>
           </div>
@@ -241,13 +317,52 @@ const OurPolicy = () => {
         >
           {selectedPolicy ? (
             <div className="policy-drawer-content">
-              <iframe
-                className="policy-drawer-frame no-close"
-                src={`${selectedPolicy.pdfPath}#page=1&zoom=page-fit&toolbar=0&navpanes=0&scrollbar=1`}
-                title={selectedPolicy.title}
-                scrolling="yes"
-                allowFullScreen
-              />
+              <div className="policy-desktop-header">
+                <div className="policy-desktop-actions">
+                  <button
+                    type="button"
+                    className="policy-desktop-zoom"
+                    onClick={decreaseDesktopZoom}
+                  >
+                    A-
+                  </button>
+                  <span className="policy-desktop-zoom-value">{`${Math.round(desktopScale * 100)}%`}</span>
+                  <button
+                    type="button"
+                    className="policy-desktop-zoom"
+                    onClick={increaseDesktopZoom}
+                  >
+                    A+
+                  </button>
+                </div>
+              </div>
+              <div className="policy-desktop-doc no-close" ref={desktopDocRef}>
+                <Document
+                  file={selectedPolicy.pdfPath}
+                  loading={
+                    <div className="policy-desktop-loading">
+                      <Spin size="large" />
+                    </div>
+                  }
+                  error="Unable to load policy PDF."
+                  onLoadSuccess={({ numPages }) => setDesktopNumPages(numPages)}
+                >
+                  {Array.from(new Array(desktopNumPages), (_el, index) => (
+                    <div
+                      key={`desktop_wrap_${index + 1}`}
+                      className="policy-page-wrap policy-desktop-page"
+                    >
+                      <Page
+                        pageNumber={index + 1}
+                        width={Math.floor(desktopPageWidth * desktopScale)}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                      />
+                      <WatermarkLayer />
+                    </div>
+                  ))}
+                </Document>
+              </div>
             </div>
           ) : null}
         </TapSwipeDrawer>
@@ -257,4 +372,3 @@ const OurPolicy = () => {
 };
 
 export default OurPolicy;
-

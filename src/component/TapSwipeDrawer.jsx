@@ -21,7 +21,9 @@ export default function TapSwipeDrawer({
 }) {
   const startRef = useRef({ x: 0, y: 0, type: "" });
   const interactionProps = disableGestureClose
-    ? {}
+    ? {
+        style: { minHeight: "100%", height: "100%" },
+      }
     : {
         onClickCapture: (e) => {
           if (!shouldIgnoreClose(e.target)) onClose?.();
