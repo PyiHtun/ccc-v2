@@ -1,9 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Avatar, Divider, Empty, List, Spin } from "antd";
-import VirtualList from "rc-virtual-list";
+import { Avatar, Collapse, Divider, Empty, Spin } from "antd";
 import { Document, Page, pdfjs } from "react-pdf";
-import TapSwipeDrawer from "./TapSwipeDrawer.jsx";
-import useWindowSize from "../hook/useWindowSize";
 import { useI18n } from "../i18n/useI18n.js";
 import { policyManifest } from "../policy/policies.js";
 import bookIcon from "../img/book.png";
@@ -13,8 +10,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-const MAX_VISIBLE_ROWS = 8;
-const ROW_HEIGHT = 76;
 const WATERMARK_POINTS = [
   { left: "18%", top: "22%" },
   { left: "50%", top: "18%" },
@@ -26,13 +21,6 @@ const WATERMARK_POINTS = [
   { left: "50%", top: "82%" },
   { left: "82%", top: "78%" },
 ];
-
-const getPolicyKeyFromHash = () => {
-  if (typeof window === "undefined") return null;
-  const hash = window.location.hash || "";
-  if (!hash.startsWith("#policy=")) return null;
-  return decodeURIComponent(hash.replace("#policy=", ""));
-};
 
 const WatermarkLayer = () => (
   <div className="policy-page-watermark-layer" aria-hidden="true">
@@ -48,325 +36,147 @@ const WatermarkLayer = () => (
   </div>
 );
 
+const PolicyLabel = ({ order, title, desc }) => (
+  <div className="policy-collapse-label">
+    <Avatar shape="square" size={42} src={bookIcon} />
+    <div className="policy-collapse-label-text">
+      <div className="policy-collapse-label-title">{`${order}. ${title}`}</div>
+      <div className="policy-collapse-label-desc">{desc}</div>
+    </div>
+  </div>
+);
+
 const OurPolicy = () => {
   const { t } = useI18n();
-  const { width } = useWindowSize();
-  const isMobile = width <= 768;
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedPolicy, setSelectedPolicy] = useState(null);
-  const [desktopNumPages, setDesktopNumPages] = useState(0);
-  const [desktopPageWidth, setDesktopPageWidth] = useState(900);
-  const [desktopScale, setDesktopScale] = useState(1);
-  const [mobilePolicyKey, setMobilePolicyKey] = useState(() => getPolicyKeyFromHash());
-  const [mobileNumPages, setMobileNumPages] = useState(0);
-  const [mobilePageWidth, setMobilePageWidth] = useState(320);
-  const [mobileScale, setMobileScale] = useState(1);
-  const mobileDocRef = useRef(null);
-  const desktopDocRef = useRef(null);
+  const [activeKey, setActiveKey] = useState(null);
+  const [numPages, setNumPages] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [pageWidth, setPageWidth] = useState(860);
+  const docRef = useRef(null);
 
-  const policyItems = policyManifest.map((item, index) => ({ ...item, order: index + 1 }));
-  const pageSize = MAX_VISIBLE_ROWS;
-  const useVirtualList = policyItems.length > MAX_VISIBLE_ROWS;
-  const [visibleCount, setVisibleCount] = useState(
-    Math.min(pageSize, policyItems.length)
+  const policyItems = useMemo(
+    () => policyManifest.map((item, index) => ({ ...item, order: index + 1 })),
+    []
   );
-  const visiblePolicies = useMemo(
-    () => policyItems.slice(0, visibleCount),
-    [policyItems, visibleCount]
+
+  const selectedPolicy = useMemo(
+    () => policyItems.find((item) => item.key === activeKey) || null,
+    [policyItems, activeKey]
   );
-  const hasMore = visibleCount < policyItems.length;
-  const listHeight =
-    Math.min(MAX_VISIBLE_ROWS, Math.max(visiblePolicies.length, 1)) * ROW_HEIGHT;
-  const mobileSelectedPolicy =
-    policyItems.find((item) => item.key === mobilePolicyKey) || null;
 
   useEffect(() => {
-    setVisibleCount((current) => Math.min(current, policyItems.length));
-  }, [policyItems.length]);
-
-  useEffect(() => {
-    if (!isMobile) return undefined;
-    const onHashChange = () => setMobilePolicyKey(getPolicyKeyFromHash());
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (!isMobile || !mobileSelectedPolicy || !mobileDocRef.current) return undefined;
+    if (!selectedPolicy || !docRef.current) return undefined;
 
     const measure = () => {
-      if (!mobileDocRef.current) return;
-      setMobilePageWidth(Math.max(280, Math.floor(mobileDocRef.current.clientWidth - 2)));
+      if (!docRef.current) return;
+      setPageWidth(Math.max(280, Math.floor(docRef.current.clientWidth - 2)));
     };
 
     measure();
     const ro = new ResizeObserver(measure);
-    ro.observe(mobileDocRef.current);
+    ro.observe(docRef.current);
     return () => ro.disconnect();
-  }, [isMobile, mobileSelectedPolicy]);
+  }, [selectedPolicy]);
 
-  useEffect(() => {
-    if (isMobile || !drawerOpen || !selectedPolicy || !desktopDocRef.current) return undefined;
-
-    const measure = () => {
-      if (!desktopDocRef.current) return;
-      setDesktopPageWidth(Math.max(560, Math.floor(desktopDocRef.current.clientWidth - 24)));
-    };
-
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(desktopDocRef.current);
-    return () => ro.disconnect();
-  }, [isMobile, drawerOpen, selectedPolicy]);
-
-  useEffect(() => {
-    setMobileNumPages(0);
-    setMobileScale(1);
-  }, [mobileSelectedPolicy?.key]);
-
-  useEffect(() => {
-    setDesktopNumPages(0);
-    setDesktopScale(1);
-  }, [selectedPolicy?.key]);
-
-  const openPolicy = (policy) => {
-    if (!policy.pdfPath) return;
-    if (isMobile) {
-      window.location.hash = `policy=${encodeURIComponent(policy.key)}`;
-      return;
-    }
-    setSelectedPolicy(policy);
-    setDrawerOpen(true);
-  };
-
-  const closeMobilePolicy = () => {
-    setMobilePolicyKey(null);
-    window.history.replaceState(
-      null,
-      "",
-      `${window.location.pathname}${window.location.search}`
-    );
+  const handlePanelChange = (key) => {
+    const next = Array.isArray(key) ? key[0] : key;
+    setActiveKey(next || null);
+    setNumPages(0);
+    setScale(1);
   };
 
   const decreaseZoom = () => {
-    setMobileScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));
+    setScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));
   };
 
   const increaseZoom = () => {
-    setMobileScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
+    setScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
   };
 
-  const decreaseDesktopZoom = () => {
-    setDesktopScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));
-  };
-
-  const increaseDesktopZoom = () => {
-    setDesktopScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
-  };
-
-  const loadMore = () => {
-    if (!hasMore) return;
-    setVisibleCount((current) => Math.min(current + pageSize, policyItems.length));
-  };
-
-  const onScroll = (e) => {
-    if (
-      Math.abs(
-        e.currentTarget.scrollHeight -
-          e.currentTarget.scrollTop -
-          listHeight
-      ) <= 1
-    ) {
-      loadMore();
-    }
-  };
+  if (policyItems.length === 0) {
+    return (
+      <div className="body-wrapper">
+        <h2 className="seo-heading">{t("policy.sectionHeading")}</h2>
+        <Divider orientation="left">{t("policy.dividerTitle")}</Divider>
+        <Empty description="No policy found" />
+      </div>
+    );
+  }
 
   return (
     <div className="body-wrapper">
       <h2 className="seo-heading">{t("policy.sectionHeading")}</h2>
       <Divider orientation="left">{t("policy.dividerTitle")}</Divider>
 
-      {isMobile && mobileSelectedPolicy ? (
-        <div className="policy-mobile-view">
-          <div className="policy-mobile-header">
-            <div className="policy-mobile-meta">
-              <Avatar shape="square" size={36} src={bookIcon} />
-              <div className="policy-mobile-title">
-                {`${mobileSelectedPolicy.order}. ${mobileSelectedPolicy.title}`}
-              </div>
-            </div>
-            <div className="policy-mobile-actions">
-              <button type="button" className="policy-mobile-zoom" onClick={decreaseZoom}>
-                A-
-              </button>
-              <span className="policy-mobile-zoom-value">{`${Math.round(mobileScale * 100)}%`}</span>
-              <button type="button" className="policy-mobile-zoom" onClick={increaseZoom}>
-                A+
-              </button>
-              <button
-                type="button"
-                className="policy-mobile-back"
-                onClick={closeMobilePolicy}
-              >
-                Back
-              </button>
-            </div>
-          </div>
-          <div className="policy-mobile-doc" ref={mobileDocRef}>
-            <Document
-              file={mobileSelectedPolicy.pdfPath}
-              loading={
-                <div className="policy-mobile-loading">
-                  <Spin size="large" />
-                </div>
-              }
-              error="Unable to load policy PDF."
-              onLoadSuccess={({ numPages }) => setMobileNumPages(numPages)}
-            >
-              {Array.from(new Array(mobileNumPages), (_el, index) => (
-                <div key={`mobile_wrap_${index + 1}`} className="policy-page-wrap policy-mobile-page">
-                  <Page
-                    pageNumber={index + 1}
-                    width={Math.floor(mobilePageWidth * mobileScale)}
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                  />
-                  <WatermarkLayer />
-                </div>
-              ))}
-            </Document>
-          </div>
-        </div>
-      ) : null}
-
-      {!isMobile || !mobileSelectedPolicy ? (
-        <>
-          {policyItems.length === 0 ? (
-            <Empty description="No policy found" />
-          ) : (
-            <List className="policy-index-list" itemLayout="horizontal">
-              {useVirtualList ? (
-                <VirtualList
-                  data={visiblePolicies}
-                  height={listHeight}
-                  itemHeight={ROW_HEIGHT}
-                  itemKey="key"
-                  onScroll={onScroll}
-                >
-                  {(policy) => (
-                    <List.Item
-                      key={policy.key}
-                      className={`policy-index-item ${policy.pdfPath ? "" : "policy-index-item-disabled"}`}
-                      onClick={() => openPolicy(policy)}
-                      role={policy.pdfPath ? "button" : undefined}
-                      tabIndex={policy.pdfPath ? 0 : -1}
-                      onKeyDown={(e) => {
-                        if (policy.pdfPath && (e.key === "Enter" || e.key === " ")) {
-                          openPolicy(policy);
-                        }
-                      }}
-                    >
-                      <List.Item.Meta
-                        avatar={<Avatar shape="square" size={42} src={bookIcon} />}
-                        title={`${policy.order}. ${policy.title}`}
-                        description={
-                          policy.pdfPath ? policy.desc : `${policy.desc} (Coming soon)`
-                        }
-                      />
-                    </List.Item>
-                  )}
-                </VirtualList>
-              ) : (
-                policyItems.map((policy) => (
-                  <List.Item
-                    key={policy.key}
-                    className={`policy-index-item ${policy.pdfPath ? "" : "policy-index-item-disabled"}`}
-                    onClick={() => openPolicy(policy)}
-                    role={policy.pdfPath ? "button" : undefined}
-                    tabIndex={policy.pdfPath ? 0 : -1}
-                    onKeyDown={(e) => {
-                      if (policy.pdfPath && (e.key === "Enter" || e.key === " ")) {
-                        openPolicy(policy);
-                      }
-                    }}
-                  >
-                    <List.Item.Meta
-                      avatar={<Avatar shape="square" size={42} src={bookIcon} />}
-                      title={`${policy.order}. ${policy.title}`}
-                      description={
-                        policy.pdfPath ? policy.desc : `${policy.desc} (Coming soon)`
-                      }
-                    />
-                  </List.Item>
-                ))
-              )}
-            </List>
-          )}
-        </>
-      ) : null}
-
-      {!isMobile ? (
-        <TapSwipeDrawer
-          title={selectedPolicy?.title || "Policy"}
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-          placement="right"
-          width="75vw"
-          styles={{ body: { padding: 0, overflow: "hidden" } }}
-          disableGestureClose
-        >
-          {selectedPolicy ? (
-            <div className="policy-drawer-content">
-              <div className="policy-desktop-header">
-                <div className="policy-desktop-actions">
+      <div className="section-collapse-wrap">
+        <Collapse
+          accordion
+          activeKey={activeKey}
+          onChange={handlePanelChange}
+          className="policy-collapse"
+          items={policyItems.map((policy) => ({
+            key: policy.key,
+            label: (
+              <PolicyLabel
+                order={policy.order}
+                title={policy.title}
+                desc={policy.pdfPath ? policy.desc : `${policy.desc} (Coming soon)`}
+              />
+            ),
+            children: policy.pdfPath ? (
+              <div className="policy-inline-viewer">
+                <div className="policy-inline-toolbar">
                   <button
                     type="button"
-                    className="policy-desktop-zoom"
-                    onClick={decreaseDesktopZoom}
+                    className="policy-inline-close"
+                    onClick={() => setActiveKey(null)}
                   >
-                    A-
+                    Close
                   </button>
-                  <span className="policy-desktop-zoom-value">{`${Math.round(desktopScale * 100)}%`}</span>
-                  <button
-                    type="button"
-                    className="policy-desktop-zoom"
-                    onClick={increaseDesktopZoom}
-                  >
-                    A+
-                  </button>
+                  <div className="policy-inline-toolbar-right">
+                    <button type="button" className="policy-inline-zoom" onClick={decreaseZoom}>
+                      A-
+                    </button>
+                    <span className="policy-inline-zoom-value">{`${Math.round(scale * 100)}%`}</span>
+                    <button type="button" className="policy-inline-zoom" onClick={increaseZoom}>
+                      A+
+                    </button>
+                  </div>
+                </div>
+
+                <div className="policy-inline-doc" ref={selectedPolicy?.key === policy.key ? docRef : null}>
+                  {selectedPolicy?.key === policy.key ? (
+                    <Document
+                      file={policy.pdfPath}
+                      loading={
+                        <div className="policy-loading">
+                          <Spin size="large" />
+                        </div>
+                      }
+                      error="Unable to load policy PDF."
+                      onLoadSuccess={({ numPages: totalPages }) => setNumPages(totalPages)}
+                    >
+                      {Array.from(new Array(numPages), (_el, index) => (
+                        <div key={`policy_page_${policy.key}_${index + 1}`} className="policy-page-wrap policy-inline-page">
+                          <Page
+                            pageNumber={index + 1}
+                            width={Math.floor(pageWidth * scale)}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                          />
+                          <WatermarkLayer />
+                        </div>
+                      ))}
+                    </Document>
+                  ) : null}
                 </div>
               </div>
-              <div className="policy-desktop-doc no-close" ref={desktopDocRef}>
-                <Document
-                  file={selectedPolicy.pdfPath}
-                  loading={
-                    <div className="policy-desktop-loading">
-                      <Spin size="large" />
-                    </div>
-                  }
-                  error="Unable to load policy PDF."
-                  onLoadSuccess={({ numPages }) => setDesktopNumPages(numPages)}
-                >
-                  {Array.from(new Array(desktopNumPages), (_el, index) => (
-                    <div
-                      key={`desktop_wrap_${index + 1}`}
-                      className="policy-page-wrap policy-desktop-page"
-                    >
-                      <Page
-                        pageNumber={index + 1}
-                        width={Math.floor(desktopPageWidth * desktopScale)}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                      />
-                      <WatermarkLayer />
-                    </div>
-                  ))}
-                </Document>
-              </div>
-            </div>
-          ) : null}
-        </TapSwipeDrawer>
-      ) : null}
+            ) : (
+              <div className="policy-coming-soon">PDF file is not uploaded for this policy yet.</div>
+            ),
+          }))}
+        />
+      </div>
     </div>
   );
 };

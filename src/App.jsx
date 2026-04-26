@@ -436,9 +436,9 @@ function enableAnalytics() {
           <div className="body-wrapper">
             <h2 className="seo-heading">{t("faq.sectionHeading")}</h2>
             <Divider orientation="left">{t("faq.dividerTitle")}</Divider>
-            <Card>
+            <div className="section-collapse-wrap">
               <Collapse accordion items={faqItems} />
-            </Card>
+            </div>
           </div>
         </div>
 
