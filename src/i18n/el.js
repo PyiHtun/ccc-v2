@@ -19,7 +19,7 @@ const el = {
   hero: {
     title: "Συμπονετική Φροντίδα Κατ’ Οίκον που Μπορείτε να Εμπιστευτείτε",
     subtitle:
-      "Η Cozy Corner Care είναι εγγεγραμμένος πάροχος φροντίδας κατ’ οίκον στην Care Quality Commission (CQC), παρέχοντας ασφαλή, επαγγελματική και εξατομικευμένη υποστήριξη σε όλο το North London και το Hertfordshire.",
+      "Η Cozy Corner Care είναι εγγεγραμμένος πάροχος φροντίδας κατ’ οίκον στην Care Quality Commission (CQC), παρέχοντας ασφαλή, επαγγελματική και εξατομικευμένη υποστήριξη σε όλο το London και το Hertfordshire.",
   },
   leadForm: {
     alertMessage:

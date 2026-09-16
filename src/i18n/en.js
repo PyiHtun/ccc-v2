@@ -19,7 +19,7 @@ const en = {
   hero: {
     title: "Compassionate Home Care You Can Trust",
     subtitle:
-      "Cozy Corner Care is a Care Quality Commission(CQC) registered home care provider delivering safe, professional and person-centred support across North London and Hertfordshire.",
+      "Cozy Corner Care is a Care Quality Commission(CQC) registered home care provider delivering safe, professional and person-centred support across London and Hertfordshire.",
   },
   leadForm: {
     alertMessage:

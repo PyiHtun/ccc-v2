@@ -19,7 +19,7 @@ const tr = {
   hero: {
     title: "Güvenle Tercih Edebileceğiniz Şefkatli Evde Bakım Hizmeti",
     subtitle:
-      "Cozy Corner Care, Care Quality Commission (CQC) nezdinde kayıtlı bir evde bakım hizmeti sağlayıcısı olup, Kuzey Londra ve Hertfordshire genelinde güvenli, profesyonel ve birey odaklı destek sunmaktadır.",
+      "Cozy Corner Care, Care Quality Commission (CQC) nezdinde kayıtlı bir evde bakım hizmeti sağlayıcısı olup, Londra ve Hertfordshire genelinde güvenli, profesyonel ve birey odaklı destek sunmaktadır.",
   },
   leadForm: {
     alertMessage:
