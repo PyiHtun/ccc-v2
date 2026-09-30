@@ -494,6 +494,14 @@ body {
 
 .policy-collapse .ant-collapse-header {
   padding: 14px 16px !important;
+  cursor: pointer !important;
+}
+
+.policy-collapse .ant-collapse-expand-icon,
+.policy-collapse .ant-collapse-header-text,
+.policy-collapse .policy-collapse-label,
+.policy-collapse .policy-collapse-label * {
+  cursor: pointer !important;
 }
 
 .policy-collapse .ant-collapse-content-box {

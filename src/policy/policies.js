@@ -12,4 +12,10 @@ export const policyManifest = [
     desc: "Our commitments, controls, and due diligence against modern slavery.",
     pdfPath: "/policies/anti-slavery-statement.pdf",
   },
+  {
+    key: "complaints-policy",
+    title: "Complaints Policy",
+    desc: "How to raise concerns and how we investigate, respond, and improve service.",
+    pdfPath: "/policies/complaints-policy-v2.pdf",
+  },
 ];
