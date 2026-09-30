@@ -560,6 +560,24 @@ body {
   line-height: 1;
 }
 
+.policy-inline-download {
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.policy-inline-download:hover {
+  color: var(--text-color);
+  text-decoration: none;
+  background: rgba(1, 91, 187, 0.06);
+}
+
 .policy-inline-zoom {
   border: 1px solid var(--border-color);
   background: transparent;

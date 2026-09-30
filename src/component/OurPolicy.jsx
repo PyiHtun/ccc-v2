@@ -134,6 +134,15 @@ const OurPolicy = () => {
                     Close
                   </button>
                   <div className="policy-inline-toolbar-right">
+                    <a
+                      className="policy-inline-download"
+                      href={policy.pdfPath}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download PDF
+                    </a>
                     <button type="button" className="policy-inline-zoom" onClick={decreaseZoom}>
                       A-
                     </button>
