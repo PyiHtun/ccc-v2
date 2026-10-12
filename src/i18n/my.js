@@ -61,6 +61,14 @@ const my = {
     ],
   },
   services: {
+    pageLinksLabel: "Enfield နှင့် London ရှိ စောင့်ရှောက်မှုဝန်ဆောင်မှုများ",
+    pageTitles: {
+      "home-care-enfield": "Enfield နှင့် London အိမ်တွင်းစောင့်ရှောက်မှု",
+      "live-in-care-enfield": "Enfield နှင့် London အတူနေစောင့်ရှောက်မှု",
+      "respite-care-enfield": "Enfield နှင့် London ယာယီစောင့်ရှောက်မှု",
+      "dementia-care-enfield": "Enfield နှင့် London မှတ်ဉာဏ်ချို့ယွင်းသူ စောင့်ရှောက်မှု",
+      "night-care-enfield": "Enfield နှင့် London ညပိုင်းစောင့်ရှောက်မှု",
+    },
     sectionHeading: "အိမ်တွင်း စောင့်ရှောက်မှု ဝန်ဆောင်မှုများ",
     dividerTitle: "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုများ",
     intro:
@@ -138,6 +146,11 @@ const my = {
           "Autism နှင့် learning disability အတွက် အထူးပြု စောင့်ရှောက်မှု။",
       },
     ],
+  },
+  areas: {
+    title: "ဝန်ဆောင်မှုပေးသော ဒေသများ",
+    description: "Enfield အခြေစိုက် Cozy Corner Care သည် Barnet နှင့် Potters Bar အပါအဝင် London နှင့် Hertfordshire တွင် အိမ်တွင်းစောင့်ရှောက်မှုပေးပါသည်။ သင့်လိုအပ်ချက်အလိုက် စီစဉ်ပြီး စောင့်ရှောက်မှုမစမီ သင့်ဒေသတွင် ဝန်ဆောင်မှုရရှိနိုင်မှုကို အတည်ပြုပါသည်။",
+    contactLink: "ဝန်ဆောင်မှုရရှိနိုင်မှု ဆွေးနွေးရန် သင့်ပို့စ်ကုဒ်ကို ပြောပြပါ",
   },
   about: {
     sectionHeading: "Cozy Corner Care အကြောင်း",
