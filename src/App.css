@@ -457,6 +457,41 @@ body {
   border: 4px;
 }
 
+.contact-form-card {
+  background: var(--card-surface);
+}
+
+.care-contact-form .ant-form-item-label > label {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.care-start-inline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.care-start-inline-row .ant-picker {
+  flex: 1;
+}
+
+.contact-form-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+
+.careers-note {
+  margin-top: 16px;
+  margin-bottom: 0;
+  color: var(--muted-text-color);
+}
+
+.careers-note a {
+  font-weight: 600;
+}
+
 /* ===== CQC Widget (base / desktop) ===== */
 #cqc-widget {
   max-width: 480px;

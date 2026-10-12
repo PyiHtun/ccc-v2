@@ -41,7 +41,7 @@ import cccAvatar from "./img/ccc_logo.png"
 
 
 // Ant Design components and icons
-import { message, Alert, Layout, Col, Row, Input, Collapse, Divider, Typography, Card, ConfigProvider, theme as antdTheme } from "antd";
+import { message, Alert, Layout, Col, Row, Input, Collapse, Divider, Typography, Card, ConfigProvider, theme as antdTheme, Form, Select, DatePicker, Checkbox, Button, Radio } from "antd";
 import {
   PhoneTwoTone,
   PhoneFilled,
@@ -85,6 +85,15 @@ function App() {
   const searchRef = useRef(null);
   const { width } = useWindowSize();
   const [sending, setSending] = useState(false);
+  const [contactForm] = Form.useForm();
+  const [contactSending, setContactSending] = useState(false);
+  const careStartValue = Form.useWatch("careStart", contactForm);
+
+  useEffect(() => {
+    if (careStartValue === "asap") {
+      contactForm.setFieldValue("expectedStartDate", null);
+    }
+  }, [careStartValue, contactForm]);
 
   const menuItems = [
     { key: "home", label: <a href="#home">{t("nav.home")}</a> },
@@ -248,6 +257,45 @@ function App() {
       .catch(() => {
         message.error(t("messages.copyEmailFailed"));
       });
+  };
+
+  const handleContactSubmit = async (values) => {
+    setContactSending(true);
+    try {
+      const formData = new FormData();
+      formData.append("full_name", values.fullName?.trim() || "");
+      formData.append("phone", values.phone?.trim() || "");
+      formData.append("email", values.email?.trim() || "");
+      formData.append("care_postcode", values.postcode?.trim() || "");
+      formData.append("care_start_timeframe", values.careStart || "");
+      formData.append(
+        "expected_start_date",
+        values.expectedStartDate ? values.expectedStartDate.format("YYYY-MM-DD") : ""
+      );
+      formData.append("promo_code", values.promoCode?.trim() || "");
+      formData.append("help_message", values.helpMessage?.trim() || "");
+      formData.append("consent", values.consent ? "Yes" : "No");
+      formData.append("page", window.location.href);
+      formData.append("_gotcha", "");
+      formData.append("_subject", t("forms.contactSubject"));
+      formData.append("source", t("forms.contactSource"));
+
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Network error");
+
+      message.success(t("messages.contactFormThanks"));
+      contactForm.resetFields();
+    } catch (err) {
+      console.error(err);
+      message.error(t("messages.contactFormSendFailed"));
+    } finally {
+      setContactSending(false);
+    }
   };
 
   
@@ -536,6 +584,113 @@ function enableAnalytics() {
                 </Card>
               </Col>
             </Row>
+
+            <Card className="contact-form-card" style={{ margin: "12px", border: "1px solid #015BBB" }}>
+              <Form
+                form={contactForm}
+                layout="vertical"
+                className="care-contact-form"
+                onFinish={handleContactSubmit}
+              >
+                <Row gutter={16}>
+                  <Col xs={24} md={12}>
+                    <Form.Item
+                      label={t("contact.form.fullNameLabel")}
+                      name="fullName"
+                      rules={[{ required: true, message: t("contact.form.fullNameRequired") }]}
+                    >
+                      <Input placeholder={t("contact.form.fullNamePlaceholder")} />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Form.Item
+                      label={t("contact.form.phoneLabel")}
+                      name="phone"
+                      rules={[{ required: true, message: t("contact.form.phoneRequired") }]}
+                    >
+                      <Input placeholder={t("contact.form.phonePlaceholder")} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={16}>
+                  <Col xs={24} md={12}>
+                    <Form.Item
+                      label={t("contact.form.emailLabel")}
+                      name="email"
+                      rules={[{ type: "email", message: t("contact.form.emailInvalid") }]}
+                    >
+                      <Input placeholder={t("contact.form.emailPlaceholder")} />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Form.Item label={t("contact.form.promoLabel")} name="promoCode">
+                      <Input placeholder={t("contact.form.promoPlaceholder")} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={16}>
+                  <Col xs={24} md={12}>
+                    <Form.Item label={t("contact.form.postcodeLabel")} name="postcode">
+                      <Input placeholder={t("contact.form.postcodePlaceholder")} />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Form.Item label={t("contact.form.careStartLabel")}>
+                      <div className="care-start-inline-row">
+                        <Form.Item name="careStart" initialValue="asap" noStyle>
+                          <Radio.Group optionType="button" buttonStyle="solid">
+                            <Radio.Button value="asap">{t("contact.form.careStartAsap")}</Radio.Button>
+                            <Radio.Button value="specific-date">{t("contact.form.careStartSpecific")}</Radio.Button>
+                          </Radio.Group>
+                        </Form.Item>
+                        <Form.Item name="expectedStartDate" noStyle>
+                          <DatePicker
+                            style={{ width: "100%" }}
+                            format="DD-MMM-YYYY"
+                            disabled={careStartValue !== "specific-date"}
+                            placeholder={t("contact.form.expectedDateLabel")}
+                          />
+                        </Form.Item>
+                      </div>
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Form.Item label={t("contact.form.helpLabel")} name="helpMessage">
+                  <Input.TextArea rows={4} placeholder={t("contact.form.helpPlaceholder")} />
+                </Form.Item>
+
+                <Form.Item
+                  name="consent"
+                  valuePropName="checked"
+                  rules={[
+                    {
+                      validator: (_, value) =>
+                        value
+                          ? Promise.resolve()
+                          : Promise.reject(new Error(t("contact.form.consentRequired"))),
+                    },
+                  ]}
+                >
+                  <Checkbox>
+                    {t("contact.form.consentText")}
+                  </Checkbox>
+                </Form.Item>
+
+                <div className="contact-form-actions">
+                  <Button type="primary" htmlType="submit" loading={contactSending}>
+                    {t("contact.form.submit")}
+                  </Button>
+                </div>
+              </Form>
+
+              <p className="careers-note">
+                {t("contact.form.careersNotePrefix")} <a href="mailto:careers@cozycornercare.com">careers@cozycornercare.com</a>.
+              </p>
+            </Card>
+
             <div className="map-responsive">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2474.2038889627916!2d-0.0221966!3d51.6744109!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f85d892c037%3A0x6e4f421c8d130d3b!2sCozy%20Corner%20Care%20Limited!5e0!3m2!1sen!2suk!4v1764021263134!5m2!1sen!2suk"
