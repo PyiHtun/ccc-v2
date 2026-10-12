@@ -61,6 +61,14 @@ const tr = {
     ],
   },
   services: {
+    pageLinksLabel: "Enfield ve Londra bakım hizmetlerini keşfedin",
+    pageTitles: {
+      "home-care-enfield": "Enfield ve Londra evde bakım",
+      "live-in-care-enfield": "Enfield ve Londra yatılı bakım",
+      "respite-care-enfield": "Enfield ve Londra geçici bakım",
+      "dementia-care-enfield": "Enfield ve Londra demans bakımı",
+      "night-care-enfield": "Enfield ve Londra gece bakımı",
+    },
     sectionHeading: "Evde Bakım Hizmetleri",
     dividerTitle: "Hizmetlerimiz",
     intro:
@@ -138,6 +146,11 @@ const tr = {
           "Otizmli bireyler ve öğrenme güçlüğü yaşayan kişiler için yapılandırılmış, sabırlı ve bireyselleştirilmiş destek sunuyoruz.\n\nYaklaşımımız; iletişim, rutin, bağımsızlık ve duyusal ihtiyaçların anlaşılmasına odaklanır. Personelimiz nöroçeşitlilik konusunda anlayışlı ve saygılı bir hizmet sunacak şekilde eğitimlidir. Aileler, esnek ve tutarlı yaklaşımımız sayesinde güven ve istikrar bulmaktadır.\n\nOtizm veya öğrenme güçlüğü desteğine yönelik kişiselleştirilmiş bir bakım planı oluşturmak için bizimle iletişime geçebilirsiniz.",
       },
     ],
+  },
+  areas: {
+    title: "Hizmet Verdiğimiz Bölgeler",
+    description: "Enfield merkezli Cozy Corner Care, Barnet ve Potters Bar dahil Londra ve Hertfordshire genelinde evde bakım sağlar. Desteği ihtiyaçlarınıza göre planlar ve bakım düzenlemeden önce bölgenizdeki uygunluğu doğrularız.",
+    contactLink: "Bakım uygunluğunu görüşmek için posta kodunuzu paylaşın",
   },
   about: {
     sectionHeading: "Cozy Corner Care Hakkında",

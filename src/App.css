@@ -724,3 +724,15 @@ body {
     width: 11px;
   }
 }
+
+.service-page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 20px;
+}
+.service-page-links a {
+  color: var(--section-title-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

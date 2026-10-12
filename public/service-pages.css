@@ -1,0 +1,23 @@
+:root { color-scheme: light dark; --bg: #fff; --surface: #f4f8fc; --text: #111827; --muted: #4b5563; --blue: #015bbb; --border: #d1d5db; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0b1220; --surface: #172033; --text: #e5e7eb; --muted: #dbe5f1; --blue: #8bbfff; --border: #475569; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+a { color: var(--blue); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+header, footer { padding: 24px max(24px, calc((100% - 1120px) / 2)); background: var(--surface); }
+header { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 1px solid var(--border); }
+header nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.brand { font-size: 1.5rem; font-weight: 700; text-decoration: none; }
+main { max-width: 960px; margin: auto; padding: 40px 24px 64px; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; margin: 12px 0 24px; }
+h2 { font-size: 1.5rem; line-height: 1.35; }
+.eyebrow, .breadcrumb { color: var(--muted); }
+.eyebrow { margin-top: 36px; }
+.intro { font-size: 1.2rem; max-width: 760px; }
+section { margin-top: 40px; }
+li { margin-bottom: 8px; }
+.cta { display: inline-block; padding: 10px 20px; background: #015bbb; color: #fff; border-radius: 6px; text-decoration: none; font-weight: 600; }
+details { padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; }
+summary { cursor: pointer; font-weight: 600; }
+.contact { padding: 24px; background: var(--surface); border-radius: 10px; }
+@media (max-width: 600px) { header { align-items: flex-start; flex-direction: column; } main { padding-top: 24px; } }

@@ -9,9 +9,11 @@ import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
 import CookieBanner from "./component/CookieBanner.jsx";
-import OurPolicy from "./component/OurPolicy.jsx";
+import DeferredPolicy from "./component/DeferredPolicy.jsx";
 import useWindowSize from "./hook/useWindowSize";
 import { useI18n } from "./i18n/useI18n.js";
+
+import { services as servicePages } from "./seo/services.js";
 
 import "./App.css";
 
@@ -469,8 +471,22 @@ function enableAnalytics() {
                 </Card.Grid>
               ))}
             </Card>
+            <nav className="service-page-links" aria-label={t("services.pageLinksLabel")}>
+              {servicePages.map((service) => (
+                <a key={service.slug} href={`/services/${service.slug}/`}>
+                  {t(`services.pageTitles.${service.slug}`, service.title)}
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
+
+        <section id="areas" className="body-wrapper">
+          <h2 className="seo-heading">{t("areas.title")}</h2>
+          <Divider orientation="left">{t("areas.title")}</Divider>
+          <p>{t("areas.description")}</p>
+          <a href="#contact">{t("areas.contactLink")}</a>
+        </section>
 
         {/* About Us Section */}
         <div id="about">
@@ -492,7 +508,7 @@ function enableAnalytics() {
 
         {/* Policy Section */}
         <div id="policy">
-          <OurPolicy />
+          <DeferredPolicy />
         </div>
 
         {/* Contact Section */}

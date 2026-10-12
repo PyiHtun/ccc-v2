@@ -61,6 +61,14 @@ const en = {
     ],
   },
   services: {
+    pageLinksLabel: "Explore care services in Enfield and London",
+    pageTitles: {
+      "home-care-enfield": "Home care in Enfield and London",
+      "live-in-care-enfield": "Live-in care in Enfield and London",
+      "respite-care-enfield": "Respite care in Enfield and London",
+      "dementia-care-enfield": "Dementia care in Enfield and London",
+      "night-care-enfield": "Night care in Enfield and London",
+    },
     sectionHeading: "Home Care Services",
     dividerTitle: "Our Services",
     intro:
@@ -138,6 +146,11 @@ const en = {
           "Our Autism and Learning-Disability Care provides structured, patient, and individualised support for people of all ages.\n\nWe focus on communication, routine, independence, and sensory understanding delivered by carers trained to support neurodiverse individuals with empathy and respect. Families appreciate our flexible, consistent approach that builds trust and confidence.\n\nContact us to arrange a personalised care plan for autism or learning-disability support.",
       },
     ],
+  },
+  areas: {
+    title: "Areas We Cover",
+    description: "Based in Enfield, Cozy Corner Care provides home care across London and Hertfordshire, including Barnet and Potters Bar. We plan support around your needs and confirm availability for your location before arranging care.",
+    contactLink: "Tell us your postcode to discuss care availability",
   },
   about: {
     sectionHeading: "About Cozy Corner Care",
