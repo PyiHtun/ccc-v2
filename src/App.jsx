@@ -9,6 +9,7 @@ import StepCard from "./component/StepCard.jsx";
 import TapSwipeDrawer from "./component/TapSwipeDrawer.jsx";
 import FloatButtonWrapper from "./component/FloatButtonWrapper.jsx";
 import CookieBanner from "./component/CookieBanner.jsx";
+import CoverageMap from "./component/CoverageMap.jsx";
 import DeferredPolicy from "./component/DeferredPolicy.jsx";
 import useWindowSize from "./hook/useWindowSize";
 import { useI18n } from "./i18n/useI18n.js";
@@ -100,6 +101,7 @@ function App() {
   const menuItems = [
     { key: "home", label: <a href="#home">{t("nav.home")}</a> },
     { key: "services", label: <a href="#services">{t("nav.services")}</a> },
+    { key: "areas", label: <a href="#areas">{t("areas.title")}</a> },
     { key: "about", label: <a href="#about">{t("nav.about")}</a> },
     { key: "faq", label: <a href="#faq">{t("nav.faq")}</a> },
     { key: "policy", label: <a href="#policy">{t("nav.policy")}</a> },
@@ -139,6 +141,24 @@ function App() {
     imageSrc: stepImageMap[card.key],
   }));
   const faqItems = t("faq.items", []) || [];
+  useEffect(() => {
+    let frame;
+    const scrollToContactForm = () => {
+      if (window.location.hash !== "#contact-form") return;
+      cancelAnimationFrame(frame);
+      // The form anchor only exists after React replaces the initial HTML.
+      frame = requestAnimationFrame(() => {
+        document.getElementById("contact-form")?.scrollIntoView({ block: "start", behavior: "auto" });
+      });
+    };
+    scrollToContactForm();
+    window.addEventListener("hashchange", scrollToContactForm);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("hashchange", scrollToContactForm);
+    };
+  }, []);
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("ccc-theme");
     if (savedTheme === "dark" || savedTheme === "light") {
@@ -247,6 +267,12 @@ function App() {
     setSelectedCard(card);
     setDrawerOpen(true);
   };
+
+  const showServiceDrawer = (service) => showDrawer({
+    title: service.title,
+    logo: service.logo,
+    description: service.description,
+  });
 
   const onClose = () => setDrawerOpen(false);
 
@@ -458,13 +484,17 @@ function enableAnalytics() {
                   key={service.title}
                   style={gridStyle}
                   className="service-card-grid"
-                  onClick={() =>
-                    showDrawer({
-                      title: service.title,
-                      logo: service.logo,
-                      description: service.description,
-                    })
-                  }
+                  hoverable={false}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={service.displayTitle}
+                  onClick={() => showServiceDrawer(service)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      showServiceDrawer(service);
+                    }
+                  }}
                 >
                   <ServiceItem icon={service.logo} title={service.displayTitle} />
                   <img src={touchIcon} alt={t("services.touchIconAlt")} className="touch-icon" />
@@ -474,7 +504,7 @@ function enableAnalytics() {
             <nav className="service-page-links" aria-label={t("services.pageLinksLabel")}>
               {servicePages.map((service) => (
                 <a key={service.slug} href={`/services/${service.slug}/`}>
-                  {t(`services.pageTitles.${service.slug}`, service.title)}
+                  {t(`services.pageTitles.${service.slug}`, service.displayTitle)}
                 </a>
               ))}
             </nav>
@@ -484,8 +514,14 @@ function enableAnalytics() {
         <section id="areas" className="body-wrapper">
           <h2 className="seo-heading">{t("areas.title")}</h2>
           <Divider orientation="left">{t("areas.title")}</Divider>
-          <p>{t("areas.description")}</p>
-          <a href="#contact">{t("areas.contactLink")}</a>
+          <CustomListItems description={t("areas.description")} />
+          <div className="coverage-content">
+            <CoverageMap darkMode={darkMode} />
+            <div className="coverage-actions">
+              <a href="#contact-form">{t("areas.contactLink")}</a>
+              <a href={`tel:${t("site.phoneDial")}`}>{t("common.callUs")}: {t("site.phoneDisplay")}</a>
+            </div>
+          </div>
         </section>
 
         {/* About Us Section */}
@@ -601,7 +637,7 @@ function enableAnalytics() {
               </Col>
             </Row>
 
-            <Card className="contact-form-card" style={{ margin: "12px", border: "1px solid #015BBB" }}>
+            <Card id="contact-form" className="contact-form-card" style={{ margin: "12px", border: "1px solid #015BBB" }}>
               <Form
                 form={contactForm}
                 layout="vertical"
@@ -757,6 +793,9 @@ function enableAnalytics() {
                   </li>
                   <li style={{ marginBottom: "8px" }}>
                     <a href="#services">{t("nav.services")}</a>
+                  </li>
+                  <li style={{ marginBottom: "8px" }}>
+                    <a href="#areas">{t("areas.title")}</a>
                   </li>
                   <li style={{ marginBottom: "8px" }}>
                     <a href="#about">{t("nav.about")}</a>

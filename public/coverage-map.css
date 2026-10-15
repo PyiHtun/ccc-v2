@@ -1,0 +1,19 @@
+:root { --surface: #fff; --text: #111827; --muted: #4b5563; --border: #d1d5db; }
+:root[data-theme="dark"] { --surface: #172033; --text: #e5e7eb; --muted: #dbe5f1; --border: #475569; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { display: flex; flex-direction: column; background: var(--surface); color: var(--text); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#coverage-map { flex: 1; min-height: 160px; background: #eaf0f4; }
+.map-caption { padding: 10px 14px; border-top: 1px solid var(--border); }
+.map-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; }
+.map-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.map-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.london-key { background: #015bbb; }
+.herts-key { background: #14816a; }
+button { margin-left: auto; padding: 4px 10px; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 5px; cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 3px solid #015bbb; outline-offset: 2px; }
+#map-note { margin: 6px 0; color: var(--muted); }
+small { display: block; font-size: 10px; color: var(--muted); }
+small a { color: inherit; }
+.region-label { border: 1px solid #cbd5e1; background: #fff; color: #111827; font-weight: 600; box-shadow: none; }
+@media (max-width: 480px) { .map-caption { padding: 8px 10px; } .map-legend { gap: 6px 12px; font-size: 12px; } }

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Cozy Corner Care coverage map</title>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/coverage-map.css">
+  <script src="/vendor/leaflet/leaflet.js" defer></script>
+  <script src="/coverage-map.js" defer></script>
+</head>
+<body>
+  <div id="coverage-map" role="region" aria-label="Greater London and Hertfordshire coverage map"></div>
+  <div class="map-caption">
+    <div class="map-legend">
+      <span><i class="london-key"></i>Greater London</span>
+      <span><i class="herts-key"></i>Hertfordshire</span>
+      <button id="reset-view" type="button">Reset view</button>
+    </div>
+    <p id="map-note" aria-live="polite">Please contact us to confirm availability in your area.</p>
+    <small>Boundaries: <a href="https://www.ons.gov.uk/methodology/geography/geographicalproducts/digitalboundaries" target="_blank" rel="noopener noreferrer">Office for National Statistics</a>, <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener noreferrer">Open Government Licence v3.0</a>. Contains OS data &copy; Crown copyright and database right 2024/2025.</small>
+  </div>
+</body>
+</html>
