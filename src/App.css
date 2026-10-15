@@ -8,6 +8,7 @@
   --body-text-color: #1f2937;
   --card-border-color: #cbd5e1;
   --card-surface: #ffffff;
+  --service-hover-bg: #eef5ff;
   --card-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
   --header-bar-bg: #ffffff;
   --header-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -23,6 +24,7 @@
   --body-text-color: #dbe5f1;
   --card-border-color: #475569;
   --card-surface: #172033;
+  --service-hover-bg: #22324b;
   --card-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   --header-bar-bg: #001529;
   --header-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
@@ -253,7 +255,7 @@ body {
 }
 
 .body-wrapper {
-  padding: 20 12px 0; /* Top, right/left, and bottom padding */
+  padding: 20px 12px 0; /* Top, right/left, and bottom padding */
   max-width: 1200px; /* Set a maximum width (adjust as needed) */
   margin: 0 auto; /* Centers the wrapper in the viewport */
 }
@@ -408,20 +410,34 @@ body {
   filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.75));
 }
 
-.service-card-grid {
+.ant-card-grid.service-card-grid {
+  position: relative;
+  cursor: pointer;
   background: var(--card-surface) !important;
   border: 1px solid var(--border-color) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.service-card-grid:hover {
+.service-card-grid * {
+  cursor: inherit;
+}
+
+.ant-card-grid.service-card-grid:hover,
+.ant-card-grid.service-card-grid:focus-visible {
+  z-index: 1;
   transform: translateY(-3px);
-  border-color: #015bbb !important;
+  background: var(--service-hover-bg) !important;
+  border-color: var(--section-title-color) !important;
   box-shadow: 0 10px 24px rgba(1, 91, 187, 0.2);
 }
 
-:root[data-theme="dark"] .service-card-grid:hover {
-  border-color: #63a7ff !important;
+.ant-card-grid.service-card-grid:focus-visible {
+  outline: 2px solid var(--section-title-color);
+  outline-offset: -3px;
+}
+
+:root[data-theme="dark"] .ant-card-grid.service-card-grid:hover,
+:root[data-theme="dark"] .ant-card-grid.service-card-grid:focus-visible {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
 }
 
@@ -460,6 +476,9 @@ body {
 .contact-form-card {
   background: var(--card-surface);
 }
+
+#contact-form { scroll-margin-top: 80px; }
+@media (max-width: 768px) { #contact-form { scroll-margin-top: 152px; } }
 
 .care-contact-form .ant-form-item-label > label {
   color: var(--text-color);
@@ -730,9 +749,25 @@ body {
   flex-wrap: wrap;
   gap: 12px 24px;
   margin-top: 20px;
+  padding: 0 12px 12px;
+  font-size: 15px;
+  line-height: 1.7;
 }
 .service-page-links a {
   color: var(--section-title-color);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+.coverage-map-frame {
+  display: block;
+  width: 100%;
+  height: 440px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin: 20px 0 16px;
+  background: var(--surface-bg);
+}
+.coverage-content { padding: 0 24px; }
+.coverage-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 15px; line-height: 1.7; }
+@media (max-width: 768px) { .coverage-map-frame { height: 380px; } }

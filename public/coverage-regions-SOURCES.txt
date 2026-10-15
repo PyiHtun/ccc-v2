@@ -1,0 +1,6 @@
+Source: Office for National Statistics licensed under the Open Government Licence v.3.0.
+Contains OS data (c) Crown copyright and database right 2024/2025.
+Greater London: Regions December 2024 EN BSC, RGN24CD E12000007.
+Hertfordshire: Counties and Unitary Authorities December 2025 UK BGC, CTYUA25CD E10000015, simplified for display.
+https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Regions_December_2024_Boundaries_EN_BSC/FeatureServer/0
+https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Counties_and_Unitary_Authorities_December_2025_Boundaries_UK_BGC/FeatureServer/0

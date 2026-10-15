@@ -1,4 +1,4 @@
-const el = {
+ const el = {
   site: {
     phoneDisplay: "0203 924 3451",
     phoneDial: "02039243451",
@@ -61,13 +61,13 @@ const el = {
     ],
   },
   services: {
-    pageLinksLabel: "Εξερευνήστε τις υπηρεσίες φροντίδας στο Enfield και το Λονδίνο",
+    pageLinksLabel: "Εξερευνήστε τις υπηρεσίες φροντίδας",
     pageTitles: {
-      "home-care-enfield": "Κατ' οίκον φροντίδα στο Enfield και το Λονδίνο",
-      "live-in-care-enfield": "Φροντίδα με διαμονή στο Enfield και το Λονδίνο",
-      "respite-care-enfield": "Προσωρινή φροντίδα στο Enfield και το Λονδίνο",
-      "dementia-care-enfield": "Φροντίδα άνοιας στο Enfield και το Λονδίνο",
-      "night-care-enfield": "Νυχτερινή φροντίδα στο Enfield και το Λονδίνο",
+      "home-care-enfield": "Κατ' οίκον φροντίδα",
+      "live-in-care-enfield": "Φροντίδα με διαμονή",
+      "respite-care-enfield": "Προσωρινή φροντίδα",
+      "dementia-care-enfield": "Φροντίδα άνοιας",
+      "night-care-enfield": "Νυχτερινή φροντίδα",
     },
     sectionHeading: "Υπηρεσίες Φροντίδας Κατ’ Οίκον",
     dividerTitle: "Οι Υπηρεσίες μας",
@@ -148,8 +148,9 @@ const el = {
     ],
   },
   areas: {
+    mapTitle: "Χάρτης φροντίδας για Greater London και Hertfordshire",
     title: "Περιοχές που εξυπηρετούμε",
-    description: "Με έδρα το Enfield, η Cozy Corner Care παρέχει κατ’ οίκον φροντίδα στο Λονδίνο και το Hertfordshire, συμπεριλαμβανομένων των Barnet και Potters Bar. Σχεδιάζουμε την υποστήριξη σύμφωνα με τις ανάγκες σας και επιβεβαιώνουμε τη διαθεσιμότητα στην περιοχή σας πριν οργανώσουμε τη φροντίδα.",
+    description: "Με έδρα το Enfield, η Cozy Corner Care υποστηρίζει πελάτες σε όλο το Greater London, συμπεριλαμβανομένου του βόρειου και νότιου Λονδίνου, και στο Hertfordshire. Σχεδιάζουμε τη φροντίδα σύμφωνα με τις ανάγκες σας και επιβεβαιώνουμε τη διαθεσιμότητα στην περιοχή σας. Ακόμη κι αν η περιοχή σας δεν αναφέρεται, καλέστε μας - ίσως μπορέσουμε να οργανώσουμε υποστήριξη.",
     contactLink: "Μοιραστείτε τον ταχυδρομικό σας κώδικα για να συζητήσουμε τη διαθεσιμότητα",
   },
   about: {

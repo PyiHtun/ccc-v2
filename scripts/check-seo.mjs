@@ -28,6 +28,9 @@ for (const url of urls) {
     const faq = schemas[0]["@graph"].find((item) => item["@type"] === "FAQPage");
     assert.deepEqual(faq.mainEntity.map((item) => item.name), en.faq.items.map((item) => item.label));
   } else {
+    const page = services.find((item) => pathname === `/services/${item.slug}/`);
+    assert.ok(html.includes(`<h1>${page.displayTitle}</h1>`), `Incorrect client-facing heading: ${url}`);
+    assert.ok(title.includes(page.title), `Location wording missing from SEO title: ${url}`);
     const service = schemas[0]["@graph"].find((item) => item["@type"] === "Service");
     assert.ok(service.name.includes("Enfield and London"), `Incorrect service coverage title: ${url}`);
     assert.ok(service.areaServed.some((area) => area.name === "London"), `Missing London coverage: ${url}`);

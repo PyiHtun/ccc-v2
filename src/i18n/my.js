@@ -61,13 +61,13 @@ const my = {
     ],
   },
   services: {
-    pageLinksLabel: "Enfield နှင့် London ရှိ စောင့်ရှောက်မှုဝန်ဆောင်မှုများ",
+    pageLinksLabel: "စောင့်ရှောက်မှုဝန်ဆောင်မှုများ",
     pageTitles: {
-      "home-care-enfield": "Enfield နှင့် London အိမ်တွင်းစောင့်ရှောက်မှု",
-      "live-in-care-enfield": "Enfield နှင့် London အတူနေစောင့်ရှောက်မှု",
-      "respite-care-enfield": "Enfield နှင့် London ယာယီစောင့်ရှောက်မှု",
-      "dementia-care-enfield": "Enfield နှင့် London မှတ်ဉာဏ်ချို့ယွင်းသူ စောင့်ရှောက်မှု",
-      "night-care-enfield": "Enfield နှင့် London ညပိုင်းစောင့်ရှောက်မှု",
+      "home-care-enfield": "အိမ်တွင်းစောင့်ရှောက်မှု",
+      "live-in-care-enfield": "အတူနေစောင့်ရှောက်မှု",
+      "respite-care-enfield": "ယာယီစောင့်ရှောက်မှု",
+      "dementia-care-enfield": "မှတ်ဉာဏ်ချို့ယွင်းသူ စောင့်ရှောက်မှု",
+      "night-care-enfield": "ညပိုင်းစောင့်ရှောက်မှု",
     },
     sectionHeading: "အိမ်တွင်း စောင့်ရှောက်မှု ဝန်ဆောင်မှုများ",
     dividerTitle: "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုများ",
@@ -148,8 +148,9 @@ const my = {
     ],
   },
   areas: {
+    mapTitle: "Greater London နှင့် Hertfordshire စောင့်ရှောက်မှုဒေသ မြေပုံ",
     title: "ဝန်ဆောင်မှုပေးသော ဒေသများ",
-    description: "Enfield အခြေစိုက် Cozy Corner Care သည် Barnet နှင့် Potters Bar အပါအဝင် London နှင့် Hertfordshire တွင် အိမ်တွင်းစောင့်ရှောက်မှုပေးပါသည်။ သင့်လိုအပ်ချက်အလိုက် စီစဉ်ပြီး စောင့်ရှောက်မှုမစမီ သင့်ဒေသတွင် ဝန်ဆောင်မှုရရှိနိုင်မှုကို အတည်ပြုပါသည်။",
+    description: "Enfield အခြေစိုက် Cozy Corner Care သည် မြောက်ပိုင်းနှင့် တောင်ပိုင်း London အပါအဝင် Greater London နှင့် Hertfordshire တစ်ဝန်းရှိ ဖောက်သည်များကို ပံ့ပိုးပေးပါသည်။ သင့်လိုအပ်ချက်အလိုက် စောင့်ရှောက်မှုကို စီစဉ်ပြီး သင့်ဒေသတွင် ဝန်ဆောင်မှုရရှိနိုင်မှုကို အတည်ပြုပါသည်။ သင့်ဒေသကို မဖော်ပြထားသော်လည်း ဖုန်းဆက်မေးမြန်းပါ - ပံ့ပိုးမှု စီစဉ်ပေးနိုင်ပါသည်။",
     contactLink: "ဝန်ဆောင်မှုရရှိနိုင်မှု ဆွေးနွေးရန် သင့်ပို့စ်ကုဒ်ကို ပြောပြပါ",
   },
   about: {

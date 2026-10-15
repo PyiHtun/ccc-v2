@@ -61,13 +61,13 @@ const tr = {
     ],
   },
   services: {
-    pageLinksLabel: "Enfield ve Londra bakım hizmetlerini keşfedin",
+    pageLinksLabel: "Bakım hizmetlerini keşfedin",
     pageTitles: {
-      "home-care-enfield": "Enfield ve Londra evde bakım",
-      "live-in-care-enfield": "Enfield ve Londra yatılı bakım",
-      "respite-care-enfield": "Enfield ve Londra geçici bakım",
-      "dementia-care-enfield": "Enfield ve Londra demans bakımı",
-      "night-care-enfield": "Enfield ve Londra gece bakımı",
+      "home-care-enfield": "Evde Bakım",
+      "live-in-care-enfield": "Yatılı Bakım",
+      "respite-care-enfield": "Geçici Bakım",
+      "dementia-care-enfield": "Demans Bakımı",
+      "night-care-enfield": "Gece Bakımı",
     },
     sectionHeading: "Evde Bakım Hizmetleri",
     dividerTitle: "Hizmetlerimiz",
@@ -148,8 +148,9 @@ const tr = {
     ],
   },
   areas: {
+    mapTitle: "Greater London ve Hertfordshire bakım bölgesi haritası",
     title: "Hizmet Verdiğimiz Bölgeler",
-    description: "Enfield merkezli Cozy Corner Care, Barnet ve Potters Bar dahil Londra ve Hertfordshire genelinde evde bakım sağlar. Desteği ihtiyaçlarınıza göre planlar ve bakım düzenlemeden önce bölgenizdeki uygunluğu doğrularız.",
+    description: "Enfield merkezli Cozy Corner Care, kuzey ve güney Londra dahil Greater London ve Hertfordshire genelinde hizmet verir. Bakımı ihtiyaçlarınıza göre planlar ve bölgenizdeki uygunluğu doğrularız. Bölgeniz belirtilmemiş olsa bile bizi arayın - destek ayarlayabiliriz.",
     contactLink: "Bakım uygunluğunu görüşmek için posta kodunuzu paylaşın",
   },
   about: {

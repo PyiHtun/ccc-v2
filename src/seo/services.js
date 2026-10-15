@@ -3,6 +3,7 @@ export const siteUrl = "https://cozycornercare.com";
 export const services = [
   {
     slug: "home-care-enfield", title: "Home Care in Enfield and London",
+    displayTitle: "Home Care",
     description: "Nurse-led home care in Enfield and London from Cozy Corner Care. Personal care, meals, daily routines and companionship tailored to your needs. Arrange a consultation.",
     intro: "Practical support at home can help you or a loved one maintain familiar routines and independence. Cozy Corner Care provides person-centred home care in Enfield and London, with support planned around individual needs and preferences.",
     heading: "Support with everyday routines",
@@ -13,6 +14,7 @@ export const services = [
   },
   {
     slug: "live-in-care-enfield", title: "Live-in Care in Enfield and London",
+    displayTitle: "Live-in Care",
     description: "Explore live-in care in Enfield and London with Cozy Corner Care. Personal support and companionship in your own home, planned around your routines and care needs.",
     intro: "Live-in care offers support in your own home when visiting care may no longer meet your needs. It can help preserve familiar surroundings, relationships and daily routines while providing more consistent assistance.",
     heading: "A care plan for life at home",
@@ -23,6 +25,7 @@ export const services = [
   },
   {
     slug: "respite-care-enfield", title: "Respite Care in Enfield and London",
+    displayTitle: "Respite Care",
     description: "Respite care in Enfield and London to support family carers and their loved ones. Discuss temporary home care, familiar routines and a personalised plan with our team.",
     intro: "Family carers sometimes need time to rest, attend appointments or manage other commitments. Respite care provides temporary support for the person they care for, with attention to familiar routines and preferences.",
     heading: "Temporary support when you need a break",
@@ -33,6 +36,7 @@ export const services = [
   },
   {
     slug: "dementia-care-enfield", title: "Dementia Care in Enfield and London",
+    displayTitle: "Dementia Care",
     description: "Person-centred dementia support at home in Enfield and London. Cozy Corner Care helps with familiar routines, personal care and companionship, working with families.",
     intro: "For someone living with dementia, familiar surroundings and patient, consistent support can be important parts of daily life. We plan home care around the person, their preferences and the routines that help them feel comfortable.",
     heading: "Support centred on the individual",
@@ -43,6 +47,7 @@ export const services = [
   },
   {
     slug: "night-care-enfield", title: "Night Care in Enfield and London",
+    displayTitle: "Night Care",
     description: "Discuss overnight home care in Enfield and London with Cozy Corner Care. Explore sleeping-night and waking-night support based on assessed needs and availability.",
     intro: "Care needs can continue overnight. We discuss night-time routines and the assistance required so that you and your family can understand which overnight arrangement may be suitable.",
     heading: "Planning overnight support",

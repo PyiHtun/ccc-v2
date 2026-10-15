@@ -61,13 +61,13 @@ const en = {
     ],
   },
   services: {
-    pageLinksLabel: "Explore care services in Enfield and London",
+    pageLinksLabel: "Explore care services",
     pageTitles: {
-      "home-care-enfield": "Home care in Enfield and London",
-      "live-in-care-enfield": "Live-in care in Enfield and London",
-      "respite-care-enfield": "Respite care in Enfield and London",
-      "dementia-care-enfield": "Dementia care in Enfield and London",
-      "night-care-enfield": "Night care in Enfield and London",
+      "home-care-enfield": "Home Care",
+      "live-in-care-enfield": "Live-in Care",
+      "respite-care-enfield": "Respite Care",
+      "dementia-care-enfield": "Dementia Care",
+      "night-care-enfield": "Night Care",
     },
     sectionHeading: "Home Care Services",
     dividerTitle: "Our Services",
@@ -148,8 +148,9 @@ const en = {
     ],
   },
   areas: {
+    mapTitle: "Care coverage map for Greater London and Hertfordshire",
     title: "Areas We Cover",
-    description: "Based in Enfield, Cozy Corner Care provides home care across London and Hertfordshire, including Barnet and Potters Bar. We plan support around your needs and confirm availability for your location before arranging care.",
+    description: "Based in Enfield, Cozy Corner Care supports clients across Greater London, including north and south London, and Hertfordshire. We plan care around your needs and confirm availability for your location. If your area is not mentioned, please call us anyway - we may be able to arrange support.",
     contactLink: "Tell us your postcode to discuss care availability",
   },
   about: {
